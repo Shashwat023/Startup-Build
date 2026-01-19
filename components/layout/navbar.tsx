@@ -59,10 +59,22 @@ export function Navbar() {
                             Enhance Idea
                         </Link>
                         <Link
+                            href="/investor"
+                            className="text-neutral-300 hover:text-[#F0C37A] transition-colors font-medium"
+                        >
+                            Investor
+                        </Link>
+                        <Link
                             href="/predictor"
                             className="text-neutral-300 hover:text-[#F0C37A] transition-colors font-medium"
                         >
                             Predictor
+                        </Link>
+                        <Link
+                            href="/rag"
+                            className="text-neutral-300 hover:text-[#F0C37A] transition-colors font-medium"
+                        >
+                            RAG Agent
                         </Link>
                         <Link
                             href="/#how-it-works"

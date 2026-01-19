@@ -1,0 +1,55 @@
+{
+    "startup_data": {
+        "product_technology": {
+            "product_type": "SaaS",
+            "current_features": [
+                "User Authentication",
+                "Dashboard",
+                "Reporting"
+            ],
+            "tech_stack": [
+                "Python",
+                "FastAPI",
+                "React"
+            ],
+            "data_strategy": "User Data",
+            "ai_usage": "Planned",
+            "tech_challenges": "Scaling database"
+        },
+        "marketing_growth": {
+            "current_marketing_channels": [
+                "Social Media",
+                "SEO"
+            ],
+            "monthly_users": 1000,
+            "customer_acquisition_cost": "$50",
+            "retention_strategy": "Email newsletters",
+            "growth_problems": "High churn"
+        },
+        "team_organization": {
+            "team_size": 5,
+            "founder_roles": [
+                "CEO",
+                "CTO"
+            ],
+            "hiring_plan_next_3_months": "Hire a sales rep",
+            "org_challenges": "Remote coordination"
+        },
+        "competition_market": {
+            "known_competitors": [
+                "CompetitorA",
+                "CompetitorB"
+            ],
+            "unique_advantage": "AI features",
+            "pricing_model": "Subscription",
+            "market_risks": "New entrants"
+        },
+        "finance_runway": {
+            "monthly_burn": "$10k",
+            "current_revenue": "$5k",
+            "funding_status": "Bootstrapped",
+            "runway_months": "12 months",
+            "financial_concerns": "Cash flow"
+        }
+    }
+}
