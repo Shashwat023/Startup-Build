@@ -1,148 +1,64 @@
-# AI Startup Orchestration Platform
+# StartupAI - AI-Powered Startup Orchestration Platform
 
-A modern, production-grade web platform for AI-powered startup orchestration. Built with Next.js, TypeScript, Tailwind CSS, and Framer Motion.
+StartupAI is a comprehensive platform designed to transform your startup idea into reality. By leveraging advanced AI agents and machine learning models, StartupAI provides founders with the tools they need for ideation, analysis, team building, and investor outreach.
 
-## 🚀 Features
+## 🚀 Core Functionalities
 
-- **Landing Page** with scroll-driven storytelling and 3D integration placeholder
-- **AI Analysis Dashboard** with comprehensive startup insights
-- **Project Management** with animated cards and status tracking
-- **Detailed Project Views** with 6 sections:
-  - Idea Input
-  - AI Analysis (SWOT, scores, recommendations)
-  - Market Intelligence
-  - AI-Generated Team
-  - Generated Documents
-  - Automation Activity Logs
-- **Smooth Animations** using Framer Motion
-- **Responsive Design** optimized for all devices
+### 1. Board Panel Advisory (CrewAI)
+Get a dedicated AI board to analyze your startup.
+*   **Actionable Roadmaps**: Generate step-by-step plans for growth.
+*   **Strengths & Weaknesses**: Identify what's working and what needs improvement.
+*   **Suggestions**: Receive strategic advice tailored to your business model.
 
-## 📦 Tech Stack
+### 2. Idea Enhancer (LangGraph)
+Transform raw ideas into robust business propositions.
+*   Uses a specialized agent to research, refine, and structure your initial concept.
 
-- **Framework**: Next.js 15 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Animations**: Framer Motion
-- **Icons**: Lucide React
-- **3D Integration**: Spline (placeholder ready)
+### 3. Chatbot (Multimodal RAG)
+A powerful AI assistant for your startup documents.
+*   **Document Analysis**: Upload PDFs or text files and ask questions.
+*   **Multimodal Support**: Understands context from various data sources locally.
 
-## 🛠️ Getting Started
+### 4. Pitch Generator (Iterative Pitcher)
+Craft a winning pitch through an iterative workflow.
+*   **AI Critique**: Receive detailed scores and feedback on your pitch.
+*   **Human-in-the-Loop**: Approve or reject AI refinements until the pitch is perfect.
+*   **Final Package**: Generates elevator pitches, executive summaries, and Q&A guides.
 
-### Prerequisites
+### 5. Startup Success Predictor
+Data-driven insights into your startup's future.
+*   Utilizes a Machine Learning model to predict the probability of success based on milestones, relationships, and funding.
 
-- Node.js 18+ and npm
+### 6. Investor Connect
+Automate your outreach to potential investors.
+*   Submit your startup details and connect via automated n8n workflows.
 
-### Installation
+## 🛠️ Tech Stack
 
-1. Install dependencies:
-```bash
-npm install
-```
+*   **Frontend**: [Next.js 15](https://nextjs.org/), [React](https://reactjs.org/), [Tailwind CSS](https://tailwindcss.com/), [Framer Motion](https://www.framer.com/motion/).
+*   **Backend**: Next.js API Route Handlers.
+*   **AI Local Agents**: Python, [LangChain](https://www.langchain.com/), [LangGraph](https://www.langchain.com/langgraph), [CrewAI](https://www.crewai.com/).
+*   **Database**: [MongoDB](https://www.mongodb.com/).
+*   **Deployment/Automation**: [n8n](https://n8n.io/), Uvicorn.
 
-2. Run the development server:
-```bash
-npm run dev
-```
+## 🚦 Getting Started
 
-3. Open [http://localhost:3000](http://localhost:3000) in your browser
+1.  **Environment Setup**:
+    *   Configure your `.env.local` with necessary API keys (Groq, MongoDB, etc.).
+    *   Set up local agent URLs (Pitcher, CrewAI, RAG).
 
-## 📁 Project Structure
+2.  **Installation**:
+    ```bash
+    npm install
+    ```
 
-```
-├── app/                      # Next.js app directory
-│   ├── auth/                # Authentication pages
-│   ├── dashboard/           # Dashboard and project pages
-│   ├── layout.tsx           # Root layout
-│   ├── page.tsx             # Landing page
-│   └── globals.css          # Global styles
-├── components/              # React components
-│   ├── auth/                # Auth components
-│   ├── dashboard/           # Dashboard components
-│   ├── landing/             # Landing page sections
-│   ├── layout/              # Layout components (Navbar, Sidebar, Footer)
-│   ├── project/             # Project detail sections
-│   ├── providers/           # Context providers
-│   └── ui/                  # Reusable UI components
-├── animations/              # Framer Motion animations
-│   ├── variants.ts          # Animation variants
-│   └── scroll-animations.tsx # Scroll-based animations
-├── hooks/                   # Custom React hooks
-├── lib/                     # Utilities and mock data
-├── types/                   # TypeScript type definitions
-└── public/                  # Static assets
-```
+3.  **Run Development Server**:
+    ```bash
+    npm run dev
+    ```
 
-## 🎨 Key Components
-
-### Landing Page
-- Hero section with Spline 3D placeholder
-- Features grid with hover animations
-- How It Works timeline
-- Scroll progress indicator
-
-### Dashboard
-- Project cards with status badges
-- Animated hover states
-- Empty state handling
-
-### Project Detail Page (Flagship)
-- Sticky progress tracker
-- 6 scrollable sections with animations
-- Expandable accordions for long content
-- Timeline view for automation logs
-
-## 🔧 Customization
-
-### Adding Spline 3D Scene
-
-1. Create your 3D scene at [spline.design](https://spline.design)
-2. Export and get the scene URL
-3. Replace the placeholder in `components/landing/hero-section.tsx`:
-
-```tsx
-// Uncomment and add your Spline scene URL
-<Spline scene="https://prod.spline.design/YOUR-SCENE-ID/scene.splinecode" />
-```
-
-### Modifying Mock Data
-
-Edit `lib/mock-data.ts` to customize:
-- Project examples
-- AI analysis content
-- Team members
-- Market insights
-- Documents
-- Automation logs
-
-### Theme Customization
-
-Modify `tailwind.config.ts` to adjust:
-- Color palette
-- Typography
-- Spacing
-- Animations
-
-## 📝 Notes
-
-- This is a **frontend-only** showcase with mock data
-- No backend or real AI integration
-- Authentication is simulated (redirects to dashboard)
-- All API calls are mocked
-
-## 🎯 Portfolio Use
-
-This project demonstrates:
-- Modern React patterns with Next.js App Router
-- TypeScript for type safety
-- Advanced animations with Framer Motion
-- Responsive design principles
-- Component architecture and reusability
-- Clean code organization
-
-## 📄 License
-
-This project is created for portfolio purposes.
+4.  **Local AI Agents**:
+    Ensure your Python-based local agents are running (e.g., Pitcher Agent, RAG Server) to enable all features.
 
 ---
-
-Built with ❤️ using Next.js, TypeScript, and Framer Motion
+Built with ❤️ for the startup ecosystem.

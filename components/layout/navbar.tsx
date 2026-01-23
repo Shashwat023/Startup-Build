@@ -74,7 +74,13 @@ export function Navbar() {
                             href="/rag"
                             className="text-neutral-300 hover:text-[#F0C37A] transition-colors font-medium"
                         >
-                            RAG Agent
+                            Chatbot
+                        </Link>
+                        <Link
+                            href="/pitcher"
+                            className="text-neutral-300 hover:text-[#F0C37A] transition-colors font-medium"
+                        >
+                            Pitcher
                         </Link>
                     </div>
 

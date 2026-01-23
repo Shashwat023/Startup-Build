@@ -29,13 +29,33 @@ export function Footer() {
                         <h3 className="font-semibold text-white mb-4">Product</h3>
                         <ul className="space-y-2">
                             <li>
-                                <Link href="/#features" className="text-sm text-neutral-400 hover:text-[#F0C37A] transition-colors">
-                                    Features
+                                <Link href="/crew" className="text-sm text-neutral-400 hover:text-[#F0C37A] transition-colors">
+                                    Board Panel Advisory
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/#how-it-works" className="text-sm text-neutral-400 hover:text-[#F0C37A] transition-colors">
-                                    How It Works
+                                <Link href="/enhance" className="text-sm text-neutral-400 hover:text-[#F0C37A] transition-colors">
+                                    Enhance Idea
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/investor" className="text-sm text-neutral-400 hover:text-[#F0C37A] transition-colors">
+                                    Investor
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/predictor" className="text-sm text-neutral-400 hover:text-[#F0C37A] transition-colors">
+                                    Predictor
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/rag" className="text-sm text-neutral-400 hover:text-[#F0C37A] transition-colors">
+                                    Chatbot
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/pitcher" className="text-sm text-neutral-400 hover:text-[#F0C37A] transition-colors">
+                                    Pitcher
                                 </Link>
                             </li>
                         </ul>
