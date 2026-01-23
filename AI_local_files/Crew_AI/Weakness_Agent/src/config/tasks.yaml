@@ -1,0 +1,190 @@
+marketing_analysis_task:
+  description: >
+    Analyze the startup's marketing and growth metrics with the following data:
+    
+    Marketing Channels: {marketing_channels}
+    Monthly Users: {monthly_users}
+    Customer Acquisition Cost: {cac}
+    Retention Strategy: {retention_strategy}
+    Growth Problems: {growth_problems}
+    
+    Focus ONLY on identifying WEAKNESSES - critical gaps and problems in their growth strategy.
+    Provide exactly 3-5 specific, data-driven weaknesses with concrete examples.
+    
+    EXAMPLE OUTPUT FORMAT (copy this structure exactly):
+    {
+      "agent_name": "Marketing Advisor",
+      "weaknesses": [
+        "First weakness with specific details and metrics",
+        "Second weakness with concrete examples",
+        "Third weakness with actionable insights",
+        "Fourth weakness with data-driven analysis"
+      ]
+    }
+    
+    CRITICAL REQUIREMENTS:
+    - Return ONLY valid JSON - no markdown, no code blocks, no extra text
+    - Use single curly braces, not double
+    - Start immediately with opening brace
+    - agent_name must be exactly "Marketing Advisor"
+    - Include 3-5 weaknesses
+    - Each weakness should be 15-50 words, specific to the provided data
+    
+    Now analyze THIS startup data and return JSON:
+    
+  expected_output: |
+    {"agent_name": "Marketing Advisor", "weaknesses": ["weakness 1", "weakness 2", "weakness 3", "weakness 4"]}
+  agent: marketing_advisor
+
+tech_analysis_task:
+  description: >
+    Analyze the startup's technology and product infrastructure with the following data:
+    
+    Product Type: {product_type}
+    Current Features: {current_features}
+    Tech Stack: {tech_stack}
+    Data Strategy: {data_strategy}
+    AI Usage: {ai_usage}
+    Tech Challenges: {tech_challenges}
+    
+    Focus ONLY on identifying WEAKNESSES - technical debt, scalability issues, and architectural problems.
+    Provide exactly 3-5 specific technical weaknesses with concrete examples.
+    
+    EXAMPLE OUTPUT FORMAT (copy this structure exactly):
+    {
+      "agent_name": "Tech Lead",
+      "weaknesses": [
+        "First technical weakness with specific architecture issues",
+        "Second weakness about scalability challenges",
+        "Third weakness regarding technical debt",
+        "Fourth weakness about infrastructure problems"
+      ]
+    }
+    
+    CRITICAL REQUIREMENTS:
+    - Return ONLY valid JSON - no markdown, no code blocks, no extra text
+    - Use single curly braces, not double
+    - Start immediately with opening brace
+    - agent_name must be exactly "Tech Lead"
+    - Include 3-5 weaknesses
+    - Each weakness should be technical and specific to the provided data
+    
+    Now analyze THIS startup data and return JSON:
+    
+  expected_output: |
+    {"agent_name": "Tech Lead", "weaknesses": ["weakness 1", "weakness 2", "weakness 3", "weakness 4"]}
+  agent: tech_lead
+
+org_hr_analysis_task:
+  description: >
+    Analyze the startup's team structure and organizational dynamics with the following data:
+    
+    Team Size: {team_size}
+    Founder Roles: {founder_roles}
+    Hiring Plan (Next 3 Months): {hiring_plan}
+    Organizational Challenges: {org_challenges}
+    
+    Focus ONLY on identifying WEAKNESSES - gaps in roles, skills, and organizational processes.
+    Provide exactly 3-5 specific organizational weaknesses with concrete examples.
+    
+    EXAMPLE OUTPUT FORMAT (copy this structure exactly):
+    {
+      "agent_name": "Org/HR Strategist",
+      "weaknesses": [
+        "First organizational weakness with team structure issues",
+        "Second weakness about skill gaps",
+        "Third weakness regarding processes",
+        "Fourth weakness about culture or coordination"
+      ]
+    }
+    
+    CRITICAL REQUIREMENTS:
+    - Return ONLY valid JSON - no markdown, no code blocks, no extra text
+    - Use single curly braces, not double
+    - Start immediately with opening brace
+    - agent_name must be exactly "Org/HR Strategist"
+    - Include 3-5 weaknesses
+    - Each weakness should focus on organizational issues
+    
+    Now analyze THIS startup data and return JSON:
+    
+  expected_output: |
+    {"agent_name": "Org/HR Strategist", "weaknesses": ["weakness 1", "weakness 2", "weakness 3", "weakness 4"]}
+  agent: org_hr_strategist
+
+competitive_analysis_task:
+  description: >
+    Analyze the startup's competitive position and market dynamics with the following data:
+    
+    Known Competitors: {competitors}
+    Unique Advantage: {unique_advantage}
+    Pricing Model: {pricing_model}
+    Market Risks: {market_risks}
+    Product Type: {product_type}
+    
+    Focus ONLY on identifying WEAKNESSES - competitive vulnerabilities and market position gaps.
+    Provide exactly 3-5 specific competitive weaknesses with concrete examples.
+    
+    EXAMPLE OUTPUT FORMAT (copy this structure exactly):
+    {
+      "agent_name": "Competitive Intelligence Analyst",
+      "weaknesses": [
+        "First competitive weakness analyzing market position",
+        "Second weakness about competitive threats",
+        "Third weakness regarding differentiation",
+        "Fourth weakness about market dynamics"
+      ]
+    }
+    
+    CRITICAL REQUIREMENTS:
+    - Return ONLY valid JSON - no markdown, no code blocks, no extra text
+    - Use single curly braces, not double
+    - Start immediately with opening brace
+    - agent_name must be exactly "Competitive Intelligence Analyst"
+    - Include 3-5 weaknesses
+    - Each weakness should analyze competitive vulnerabilities
+    
+    Now analyze THIS startup data and return JSON:
+    
+  expected_output: |
+    {"agent_name": "Competitive Intelligence Analyst", "weaknesses": ["weakness 1", "weakness 2", "weakness 3", "weakness 4"]}
+  agent: competitive_analyst
+
+finance_analysis_task:
+  description: >
+    Analyze the startup's financial health and runway with the following data:
+    
+    Monthly Burn: {monthly_burn}
+    Current Revenue: {current_revenue}
+    Funding Status: {funding_status}
+    Runway (Months): {runway_months}
+    Financial Concerns: {financial_concerns}
+    Team Size: {team_size}
+    
+    Focus ONLY on identifying WEAKNESSES - cash flow issues, burn rate problems, and financial risks.
+    Provide exactly 3-5 specific financial weaknesses with concrete examples.
+    
+    EXAMPLE OUTPUT FORMAT (copy this structure exactly):
+    {
+      "agent_name": "Finance & Burn-Rate Advisor",
+      "weaknesses": [
+        "First financial weakness with specific calculations",
+        "Second weakness about burn rate and runway",
+        "Third weakness regarding unit economics",
+        "Fourth weakness about financial sustainability"
+      ]
+    }
+    
+    CRITICAL REQUIREMENTS:
+    - Return ONLY valid JSON - no markdown, no code blocks, no extra text
+    - Use single curly braces, not double
+    - Start immediately with opening brace
+    - agent_name must be exactly "Finance & Burn-Rate Advisor"
+    - Include 3-5 weaknesses
+    - Each weakness should include financial calculations and metrics
+    
+    Now analyze THIS startup data and return JSON:
+    
+  expected_output: |
+    {"agent_name": "Finance & Burn-Rate Advisor", "weaknesses": ["weakness 1", "weakness 2", "weakness 3", "weakness 4"]}
+  agent: finance_advisor

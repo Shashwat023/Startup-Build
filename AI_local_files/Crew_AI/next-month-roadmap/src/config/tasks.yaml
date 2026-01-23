@@ -1,0 +1,135 @@
+marketing_analysis_task:
+  description: >
+    Analyze the startup's marketing and growth metrics with the following data:
+    
+    Marketing Channels: {marketing_channels}
+    Monthly Users: {monthly_users}
+    Customer Acquisition Cost: {cac}
+    Retention Strategy: {retention_strategy}
+    Growth Problems: {growth_problems}
+    
+    Based on this data, create a NEXT MONTH ROADMAP with week-by-week action plan for 30 days.
+    
+    You must respond ONLY with valid JSON in this exact format (no markdown, no extra text):
+    {{
+      "agent_name": "Marketing Advisor",
+      "next_month_roadmap": [
+        "Week 1: [Specific marketing action items for week 1]",
+        "Week 2: [Specific marketing action items for week 2]",
+        "Week 3: [Specific marketing action items for week 3]",
+        "Week 4: [Specific marketing action items for week 4]"
+      ]
+    }}
+    
+  expected_output: >
+    Valid JSON with agent_name and 4-item next_month_roadmap array
+  agent: marketing_advisor
+
+tech_analysis_task:
+  description: >
+    Analyze the startup's technology and product infrastructure with the following data:
+    
+    Product Type: {product_type}
+    Current Features: {current_features}
+    Tech Stack: {tech_stack}
+    Data Strategy: {data_strategy}
+    AI Usage: {ai_usage}
+    Tech Challenges: {tech_challenges}
+    
+    Based on this data, create a NEXT MONTH ROADMAP with sprint-by-sprint technical plan for 30 days.
+    
+    You must respond ONLY with valid JSON in this exact format (no markdown, no extra text):
+    {{
+      "agent_name": "Tech Lead",
+      "next_month_roadmap": [
+        "Sprint 1 (Days 1-7): [Specific technical tasks]",
+        "Sprint 2 (Days 8-14): [Specific technical tasks]",
+        "Sprint 3 (Days 15-21): [Specific technical tasks]",
+        "Sprint 4 (Days 22-30): [Specific technical tasks]"
+      ]
+    }}
+    
+  expected_output: >
+    Valid JSON with agent_name and 4-item next_month_roadmap array
+  agent: tech_lead
+
+org_hr_analysis_task:
+  description: >
+    Analyze the startup's team structure and organizational dynamics with the following data:
+    
+    Team Size: {team_size}
+    Founder Roles: {founder_roles}
+    Hiring Plan (Next 3 Months): {hiring_plan}
+    Organizational Challenges: {org_challenges}
+    
+    Based on this data, create a NEXT MONTH ROADMAP for hiring and organizational development.
+    
+    You must respond ONLY with valid JSON in this exact format (no markdown, no extra text):
+    {{
+      "agent_name": "Org/HR Strategist",
+      "next_month_roadmap": [
+        "Week 1: [Specific org/hiring activities]",
+        "Week 2: [Specific org/hiring activities]",
+        "Week 3: [Specific org/hiring activities]",
+        "Week 4: [Specific org/hiring activities]"
+      ]
+    }}
+    
+  expected_output: >
+    Valid JSON with agent_name and 4-item next_month_roadmap array
+  agent: org_hr_strategist
+
+competitive_analysis_task:
+  description: >
+    Analyze the startup's competitive position and market dynamics with the following data:
+    
+    Known Competitors: {competitors}
+    Unique Advantage: {unique_advantage}
+    Pricing Model: {pricing_model}
+    Market Risks: {market_risks}
+    Product Type: {product_type}
+    
+    Based on this data, create a NEXT MONTH ROADMAP for competitive positioning.
+    
+    You must respond ONLY with valid JSON in this exact format (no markdown, no extra text):
+    {{
+      "agent_name": "Competitive Intelligence Analyst",
+      "next_month_roadmap": [
+        "Week 1: [Specific competitive actions]",
+        "Week 2: [Specific competitive actions]",
+        "Week 3: [Specific competitive actions]",
+        "Week 4: [Specific competitive actions]"
+      ]
+    }}
+    
+  expected_output: >
+    Valid JSON with agent_name and 4-item next_month_roadmap array
+  agent: competitive_analyst
+
+finance_analysis_task:
+  description: >
+    Analyze the startup's financial health and runway with the following data:
+    
+    Monthly Burn: {monthly_burn}
+    Current Revenue: {current_revenue}
+    Funding Status: {funding_status}
+    Runway (Months): {runway_months}
+    Financial Concerns: {financial_concerns}
+    Team Size: {team_size}
+    
+    Based on this data, create a NEXT MONTH ROADMAP for financial management.
+    
+    You must respond ONLY with valid JSON in this exact format (no markdown, no extra text):
+    {{
+      "agent_name": "Finance & Burn-Rate Advisor",
+      "next_month_roadmap": [
+        "Week 1: [Specific financial tasks]",
+        "Week 2: [Specific financial tasks]",
+        "Week 3: [Specific financial tasks]",
+        "Week 4: [Specific financial tasks]"
+      ]
+    }}
+    
+  expected_output: >
+    Valid JSON with agent_name and 4-item next_month_roadmap array
+  agent: finance_advisor

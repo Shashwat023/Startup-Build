@@ -16,8 +16,9 @@ const features = [
     },
     {
         icon: Users,
-        title: "Team Building",
-        description: "AI generates your ideal team composition with role definitions, skill requirements, and hiring roadmaps.",
+        title: "Board Panel Advisory",
+        description: "Strategic insights from AI board advisors analyzing your startup across marketing, tech, operations, competition, and finance.",
+        link: "/crew",
     },
     {
         icon: TrendingUp,
@@ -38,6 +39,7 @@ const features = [
         icon: Target,
         title: "Success Prediction",
         description: "AI-powered predictions about your startup's future using advanced machine learning models trained on real startup data.",
+        link: "/predictor",
     },
 ];
 
@@ -72,11 +74,11 @@ export function FeaturesSection() {
                 <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {features.map((feature, index) => {
                         const Icon = feature.icon;
-                        const isSuccessPrediction = feature.title === "Success Prediction";
+                        const hasLink = feature.link;
 
                         const cardContent = (
                             <motion.div key={index} variants={staggerItem}>
-                                <Card className={`h-full bg-white/5 backdrop-blur-md border-white/10 hover:bg-white/10 transition-all ${isSuccessPrediction ? 'cursor-pointer' : ''}`}>
+                                <Card className={`h-full bg-white/5 backdrop-blur-md border-white/10 hover:bg-white/10 transition-all ${hasLink ? 'cursor-pointer' : ''}`}>
                                     <CardContent className="pt-6">
                                         {/* Icon */}
                                         <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#F0C37A] to-[#D4A84A] flex items-center justify-center mb-4">
@@ -91,8 +93,8 @@ export function FeaturesSection() {
                             </motion.div>
                         );
 
-                        return isSuccessPrediction ? (
-                            <Link key={index} href="/predictor">
+                        return hasLink ? (
+                            <Link key={index} href={feature.link}>
                                 {cardContent}
                             </Link>
                         ) : (

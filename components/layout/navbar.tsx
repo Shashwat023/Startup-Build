@@ -47,10 +47,10 @@ export function Navbar() {
                     {/* Navigation Links */}
                     <div className="hidden md:flex items-center space-x-8">
                         <Link
-                            href="/#features"
+                            href="/crew"
                             className="text-neutral-300 hover:text-[#F0C37A] transition-colors font-medium"
                         >
-                            Features
+                            Board Panel Advisory
                         </Link>
                         <Link
                             href="/enhance"
@@ -75,12 +75,6 @@ export function Navbar() {
                             className="text-neutral-300 hover:text-[#F0C37A] transition-colors font-medium"
                         >
                             RAG Agent
-                        </Link>
-                        <Link
-                            href="/#how-it-works"
-                            className="text-neutral-300 hover:text-[#F0C37A] transition-colors font-medium"
-                        >
-                            How It Works
                         </Link>
                     </div>
 

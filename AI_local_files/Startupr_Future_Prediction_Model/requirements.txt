@@ -1,0 +1,27 @@
+# Build dependencies
+setuptools>=65.0.0
+wheel>=0.38.0
+
+# Data manipulation and analysis
+pandas>=2.0.0,<2.3.0
+numpy>=1.24.0,<2.0.0
+
+# Machine Learning
+scikit-learn>=1.3.0,<1.6.0
+xgboost>=2.0.0,<3.0.0
+
+# Visualization
+matplotlib>=3.7.0,<3.10.0
+seaborn>=0.12.0,<0.14.0
+
+# API Framework
+fastapi>=0.104.0,<0.112.0
+pydantic>=2.4.0,<3.0.0
+uvicorn[standard]>=0.24.0,<0.32.0
+
+# Model persistence
+joblib>=1.3.0,<1.5.0
+
+# Additional FastAPI dependencies
+python-multipart>=0.0.6,<0.0.10
+
