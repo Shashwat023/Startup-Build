@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
+// POST: Submit analysis and wait for completion (legacy polling)
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
@@ -41,64 +42,71 @@ export async function POST(request: NextRequest) {
         const submitResult = await submitResponse.json();
         const analysisId = submitResult.analysis_id;
 
-        // Poll for results (max 5 minutes, check every 3 seconds)
-        const maxAttempts = 100;
-        const pollInterval = 3000;
-
-        for (let attempt = 0; attempt < maxAttempts; attempt++) {
-            await new Promise((resolve) => setTimeout(resolve, pollInterval));
-
-            const statusResponse = await fetch(
-                `${roadmapUrl}/api/results/${analysisId}`
-            );
-
-            if (statusResponse.ok) {
-                const result = await statusResponse.json();
-
-                if (result.status === "completed") {
-                    return NextResponse.json({
-                        analysis_id: analysisId,
-                        agent: "next-month-roadmap",
-                        status: "completed",
-                        submitted_at: result.submitted_at,
-                        completed_at: result.completed_at,
-                        result: result.result,
-                    });
-                }
-
-                if (result.status === "failed") {
-                    return NextResponse.json({
-                        analysis_id: analysisId,
-                        agent: "next-month-roadmap",
-                        status: "failed",
-                        submitted_at: result.submitted_at,
-                        error: result.error || "Analysis failed",
-                    });
-                }
-
-                // Still processing, continue polling
-                console.log(
-                    `Attempt ${attempt + 1}/${maxAttempts}: Status is ${result.status}`
-                );
-            }
-        }
-
-        // Timeout
-        return NextResponse.json(
-            {
-                analysis_id: analysisId,
-                agent: "next-month-roadmap",
-                status: "processing",
-                error: "Analysis timed out. Please check back later.",
-            },
-            { status: 408 }
-        );
+        // Return immediately with analysis ID for SSE streaming
+        // Frontend should connect to /api/crew/roadmap/stream?id=<analysisId>
+        return NextResponse.json({
+            analysis_id: analysisId,
+            agent: "next-month-roadmap",
+            status: "queued",
+            message: "Analysis started. Connect to SSE stream for real-time progress.",
+            stream_url: `/api/crew/roadmap/stream?id=${analysisId}`
+        });
     } catch (error) {
         console.error("Error in roadmap analysis:", error);
         return NextResponse.json(
             {
                 error: error instanceof Error ? error.message : "Internal server error",
             },
+            { status: 500 }
+        );
+    }
+}
+
+// GET: Poll for results (fallback)
+export async function GET(request: NextRequest) {
+    const analysisId = request.nextUrl.searchParams.get("id");
+
+    if (!analysisId) {
+        return NextResponse.json(
+            { error: "Analysis ID required" },
+            { status: 400 }
+        );
+    }
+
+    const roadmapUrl = process.env.CREWAI_ROADMAP_URL;
+    if (!roadmapUrl) {
+        return NextResponse.json(
+            { error: "CREWAI_ROADMAP_URL not configured" },
+            { status: 500 }
+        );
+    }
+
+    try {
+        const response = await fetch(`${roadmapUrl}/api/results/${analysisId}`);
+
+        if (!response.ok) {
+            return NextResponse.json(
+                { error: "Analysis not found" },
+                { status: response.status }
+            );
+        }
+
+        const result = await response.json();
+
+        return NextResponse.json({
+            analysis_id: analysisId,
+            agent: "next-month-roadmap",
+            status: result.status,
+            submitted_at: result.submitted_at,
+            completed_at: result.completed_at,
+            result: result.result,
+            error: result.error,
+            pipeline: result.pipeline
+        });
+    } catch (error) {
+        console.error("Error fetching results:", error);
+        return NextResponse.json(
+            { error: "Failed to fetch results" },
             { status: 500 }
         );
     }

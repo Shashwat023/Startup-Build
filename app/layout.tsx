@@ -3,6 +3,7 @@ import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { MotionProvider } from "@/components/providers/motion-provider";
 import { SessionProvider } from "next-auth/react";
+import { AuthModalProvider } from "@/components/providers/auth-modal-provider";
 
 const spaceGrotesk = Space_Grotesk({
     subsets: ["latin"],
@@ -25,7 +26,9 @@ export default function RootLayout({
         <html lang="en" suppressHydrationWarning>
             <body className={`${spaceGrotesk.variable} font-sans antialiased`} suppressHydrationWarning>
                 <SessionProvider>
-                    <MotionProvider>{children}</MotionProvider>
+                    <AuthModalProvider>
+                        <MotionProvider>{children}</MotionProvider>
+                    </AuthModalProvider>
                 </SessionProvider>
             </body>
         </html>

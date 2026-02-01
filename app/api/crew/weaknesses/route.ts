@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
         }
 
         // Submit analysis to FastAPI backend
-        const submitResponse = await fetch(`${weaknessesUrl}/analyze`, {
+        const submitResponse = await fetch(`${weaknessesUrl}/api/analyze`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -41,60 +41,67 @@ export async function POST(request: NextRequest) {
         const submitResult = await submitResponse.json();
         const analysisId = submitResult.analysis_id;
 
-        // Poll for results (max 5 minutes, check every 3 seconds)
-        const maxAttempts = 100;
-        const pollInterval = 3000;
+        // Return immediately with analysis ID and stream URL
+        return NextResponse.json({
+            analysis_id: analysisId,
+            stream_url: `/api/crew/weaknesses/stream?id=${analysisId}`,
+            status: "queued",
+            message: "Analysis queued. Connect to stream_url for real-time progress."
+        });
 
-        for (let attempt = 0; attempt < maxAttempts; attempt++) {
-            await new Promise((resolve) => setTimeout(resolve, pollInterval));
-
-            const statusResponse = await fetch(
-                `${weaknessesUrl}/results/${analysisId}`
-            );
-
-            if (statusResponse.ok) {
-                const result = await statusResponse.json();
-
-                if (result.status === "completed") {
-                    return NextResponse.json({
-                        analysis_id: analysisId,
-                        agent: "weaknesses",
-                        status: "completed",
-                        submitted_at: result.submitted_at,
-                        completed_at: result.completed_at,
-                        result: result.result,
-                    });
-                }
-
-                if (result.status === "failed") {
-                    return NextResponse.json({
-                        analysis_id: analysisId,
-                        agent: "weaknesses",
-                        status: "failed",
-                        submitted_at: result.submitted_at,
-                        error: result.error || "Analysis failed",
-                    });
-                }
-
-                // Still processing, continue polling
-                console.log(
-                    `Attempt ${attempt + 1}/${maxAttempts}: Status is ${result.status}`
-                );
-            }
-        }
-
-        // Timeout
-        return NextResponse.json(
-            {
-                analysis_id: analysisId,
-                agent: "weaknesses",
-                status: "processing",
-                error: "Analysis timed out. Please check back later.",
-            },
-            { status: 408 }
-        );
     } catch (error) {
         console.error("Error in weaknesses analysis:", error);
+        return NextResponse.json(
+            {
+                error: error instanceof Error ? error.message : "Internal server error",
+            },
+            { status: 500 }
+        );
+    }
+}
+
+// GET endpoint for polling fallback
+export async function GET(request: NextRequest) {
+    try {
+        const { searchParams } = new URL(request.url);
+        const analysisId = searchParams.get("id");
+
+        if (!analysisId) {
+            return NextResponse.json(
+                { error: "analysis_id is required" },
+                { status: 400 }
+            );
+        }
+
+        const weaknessesUrl = process.env.CREWAI_WEAKNESSES_URL;
+        if (!weaknessesUrl) {
+            return NextResponse.json(
+                { error: "CREWAI_WEAKNESSES_URL not configured" },
+                { status: 500 }
+            );
+        }
+
+        const response = await fetch(`${weaknessesUrl}/api/results/${analysisId}`);
+
+        if (!response.ok) {
+            if (response.status === 404) {
+                return NextResponse.json(
+                    { error: "Analysis not found" },
+                    { status: 404 }
+                );
+            }
+            const errorText = await response.text();
+            return NextResponse.json(
+                { error: `Backend error: ${errorText}` },
+                { status: response.status }
+            );
+        }
+
+        const result = await response.json();
+        return NextResponse.json(result);
+
+    } catch (error) {
+        console.error("Error fetching weaknesses results:", error);
         return NextResponse.json(
             {
                 error: error instanceof Error ? error.message : "Internal server error",

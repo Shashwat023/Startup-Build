@@ -65,6 +65,31 @@ class RoadmapResults(BaseModel):
     finance_roadmap: List[str] = Field(default_factory=list, description="Finance weekly roadmap")
 
 
+class AgentStatus(BaseModel):
+    """Status of a single agent in the pipeline."""
+    agent_name: str
+    display_name: str
+    status: Literal["pending", "running", "cooling_down", "completed", "failed", "retrying"]
+    started_at: Optional[str] = None
+    completed_at: Optional[str] = None
+    cooldown_remaining: Optional[int] = None
+    attempt: int = 1
+    error: Optional[str] = None
+    result: Optional[List[str]] = None
+
+
+class PipelineStatus(BaseModel):
+    """Full pipeline execution status."""
+    analysis_id: str
+    pipeline_status: Literal["queued", "running", "completed", "failed"]
+    current_agent: Optional[str] = None
+    current_phase: Optional[Literal["running", "cooling_down"]] = None
+    agents: List[AgentStatus] = []
+    started_at: Optional[str] = None
+    completed_at: Optional[str] = None
+    total_cooldown_seconds: int = 15
+
+
 class AnalysisResult(BaseModel):
     """Complete analysis result with metadata."""
     analysis_id: str
@@ -73,3 +98,4 @@ class AnalysisResult(BaseModel):
     completed_at: Optional[str] = None
     result: Optional[RoadmapResults] = None
     error: Optional[str] = None
+    pipeline: Optional[PipelineStatus] = None

@@ -5,4 +5,4 @@ python-multipart==0.0.12
 
 openai==1.83.0
 groq
-litellm==1.59.12
+litellm==1.48.1

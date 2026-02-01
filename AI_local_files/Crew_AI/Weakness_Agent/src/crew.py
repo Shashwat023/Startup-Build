@@ -15,7 +15,7 @@ class BoardPanelCrew:
 
     def __init__(self):
         groq_api_key = os.getenv('GROQ_API_KEY', '')
-        groq_model = os.getenv('GROQ_MODEL', 'llama-3.1-8b-instant')
+        groq_model = os.getenv('GROQ_MODEL', 'llama-3.3-70b-versatile')
         
         if not groq_api_key:
             raise ValueError("GROQ_API_KEY not found")
@@ -74,37 +74,47 @@ class BoardPanelCrew:
 
     @task
     def marketing_analysis_task(self) -> Task:
+        from models import AgentWeaknessOutput
         return Task(
             config=self.tasks_config['marketing_analysis_task'],
-            agent=self.marketing_advisor()
+            agent=self.marketing_advisor(),
+            output_json=AgentWeaknessOutput
         )
 
     @task
     def tech_analysis_task(self) -> Task:
+        from models import AgentWeaknessOutput
         return Task(
             config=self.tasks_config['tech_analysis_task'],
-            agent=self.tech_lead()
+            agent=self.tech_lead(),
+            output_json=AgentWeaknessOutput
         )
 
     @task
     def org_hr_analysis_task(self) -> Task:
+        from models import AgentWeaknessOutput
         return Task(
             config=self.tasks_config['org_hr_analysis_task'],
-            agent=self.org_hr_strategist()
+            agent=self.org_hr_strategist(),
+            output_json=AgentWeaknessOutput
         )
 
     @task
     def competitive_analysis_task(self) -> Task:
+        from models import AgentWeaknessOutput
         return Task(
             config=self.tasks_config['competitive_analysis_task'],
-            agent=self.competitive_analyst()
+            agent=self.competitive_analyst(),
+            output_json=AgentWeaknessOutput
         )
 
     @task
     def finance_analysis_task(self) -> Task:
+        from models import AgentWeaknessOutput
         return Task(
             config=self.tasks_config['finance_analysis_task'],
-            agent=self.finance_advisor()
+            agent=self.finance_advisor(),
+            output_json=AgentWeaknessOutput
         )
 
     @crew
@@ -117,3 +127,49 @@ class BoardPanelCrew:
             process=Process.sequential,
             verbose=True,
         )
+
+    def get_agent_by_name(self, agent_name: str) -> Agent:
+        """Get an agent instance by name for pipeline-controlled execution."""
+        agent_map = {
+            "finance_advisor": self.finance_advisor,
+            "marketing_advisor": self.marketing_advisor,
+            "tech_lead": self.tech_lead,
+            "org_hr_strategist": self.org_hr_strategist,
+            "competitive_analyst": self.competitive_analyst,
+        }
+        if agent_name not in agent_map:
+            raise ValueError(f"Unknown agent: {agent_name}")
+        return agent_map[agent_name]()
+
+    def get_task_by_name(self, task_name: str) -> Task:
+        """Get a task instance by name for pipeline-controlled execution."""
+        task_map = {
+            "finance_analysis_task": self.finance_analysis_task,
+            "marketing_analysis_task": self.marketing_analysis_task,
+            "tech_analysis_task": self.tech_analysis_task,
+            "org_hr_analysis_task": self.org_hr_analysis_task,
+            "competitive_analysis_task": self.competitive_analysis_task,
+        }
+        if task_name not in task_map:
+            raise ValueError(f"Unknown task: {task_name}")
+        return task_map[task_name]()
+
+    def run_single_task(self, agent_name: str, task_name: str, inputs: dict):
+        """
+        Run a single agent task for pipeline-controlled execution.
+        
+        This allows the pipeline to control timing between agents,
+        enforcing cooldown periods and controlled retries.
+        """
+        agent = self.get_agent_by_name(agent_name)
+        task = self.get_task_by_name(task_name)
+        
+        # Create a mini-crew with just this agent and task
+        single_crew = Crew(
+            agents=[agent],
+            tasks=[task],
+            process=Process.sequential,
+            verbose=True,
+        )
+        
+        return single_crew.kickoff(inputs=inputs)

@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "servers": "powershell -ExecutionPolicy Bypass -File ./start-all-servers.ps1",
+    "server": "powershell -ExecutionPolicy Bypass -File ./start-server.ps1"
   },
   "dependencies": {
     "clsx": "^2.1.1",

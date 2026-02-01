@@ -1,16 +1,7 @@
 from crewai import Agent, Crew, Process, Task, LLM
 from crewai.project import CrewBase, agent, crew, task
 import os
-import warnings
-import logging
 from dotenv import load_dotenv
-
-load_dotenv()
-
-# Suppress litellm warnings about apscheduler
-warnings.filterwarnings("ignore", module="litellm")
-logging.getLogger("litellm").setLevel(logging.ERROR)
-
 from models import (
     MarketingSuggestions,
     TechSuggestions,
@@ -18,6 +9,9 @@ from models import (
     CompetitiveSuggestions,
     FinanceSuggestions
 )
+
+load_dotenv()
+
 
 @CrewBase
 class BoardPanelCrew:
@@ -28,7 +22,7 @@ class BoardPanelCrew:
 
     def __init__(self):
         groq_api_key = os.getenv('GROQ_API_KEY', '')
-        groq_model = os.getenv('GROQ_MODEL', 'llama-3.1-8b-instant')
+        groq_model = os.getenv('GROQ_MODEL', 'llama-3.3-70b-versatile')
         
         if not groq_api_key:
             raise ValueError("GROQ_API_KEY not found in environment variables")
@@ -36,16 +30,15 @@ class BoardPanelCrew:
         os.environ['GROQ_API_KEY'] = groq_api_key
         
         # Token configuration:
-        # - Using llama-3.1-8b-instant for faster processing
+        # - 8000 TPM rate limit / 5 agents = 1600 tokens per agent
         # - Increased to 1200 output tokens for better completion
+        # - With ~400 input tokens, total ~1600 per task
         # - Lower temperature for more consistent JSON output
         self.llm = LLM(
             model=f"groq/{groq_model}",
             api_key=groq_api_key,
             temperature=0.3,  # Lower temperature for more consistent JSON
-            max_tokens=1200  # Increased from 800 for better completion
-            # Note: response_format not supported by Groq provider
-            # JSON structure enforced via output_pydantic in tasks
+            max_tokens=1200,  # Increased from 800 for better completion
         )
         
         print(f"Initialized LLM: {groq_model} with max_tokens=1200, temperature=0.3")
@@ -159,3 +152,49 @@ class BoardPanelCrew:
             verbose=True,
             # Removed max_rpm to rely on our custom rate limiting
         )
+
+    def get_agent_by_name(self, agent_name: str) -> Agent:
+        """Get an agent instance by name for pipeline-controlled execution."""
+        agent_map = {
+            "finance_advisor": self.finance_advisor,
+            "marketing_advisor": self.marketing_advisor,
+            "tech_lead": self.tech_lead,
+            "org_hr_strategist": self.org_hr_strategist,
+            "competitive_analyst": self.competitive_analyst,
+        }
+        if agent_name not in agent_map:
+            raise ValueError(f"Unknown agent: {agent_name}")
+        return agent_map[agent_name]()
+
+    def get_task_by_name(self, task_name: str) -> Task:
+        """Get a task instance by name for pipeline-controlled execution."""
+        task_map = {
+            "finance_analysis_task": self.finance_analysis_task,
+            "marketing_analysis_task": self.marketing_analysis_task,
+            "tech_analysis_task": self.tech_analysis_task,
+            "org_hr_analysis_task": self.org_hr_analysis_task,
+            "competitive_analysis_task": self.competitive_analysis_task,
+        }
+        if task_name not in task_map:
+            raise ValueError(f"Unknown task: {task_name}")
+        return task_map[task_name]()
+
+    def run_single_task(self, agent_name: str, task_name: str, inputs: dict):
+        """
+        Run a single agent task for pipeline-controlled execution.
+        
+        This allows the pipeline to control timing between agents,
+        enforcing cooldown periods and controlled retries.
+        """
+        agent = self.get_agent_by_name(agent_name)
+        task = self.get_task_by_name(task_name)
+        
+        # Create a mini-crew with just this agent and task
+        single_crew = Crew(
+            agents=[agent],
+            tasks=[task],
+            process=Process.sequential,
+            verbose=True,
+        )
+        
+        return single_crew.kickoff(inputs=inputs)

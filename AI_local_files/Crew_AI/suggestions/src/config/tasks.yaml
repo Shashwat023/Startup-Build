@@ -1,14 +1,21 @@
 marketing_analysis_task:
   description: >
-    Analyze the startup's marketing situation:
+    Analyze the startup's marketing situation based on the data provided below.
+    
+    Marketing Data:
     - Current Channels: {marketing_channels}
     - Monthly Users: {monthly_users}
     - Customer Acquisition Cost: {cac}
     - Retention Strategy: {retention_strategy}
     - Growth Problems: {growth_problems}
     
-    You MUST provide exactly 5 specific, actionable marketing suggestions.
-    Each suggestion should be 1-2 sentences long and immediately actionable.
+    Your Task:
+    Based on whatever marketing data is provided above (it could be any channels, any user count,
+    any CAC, any retention approach), you MUST provide exactly 5 specific, actionable marketing
+    suggestions. Each suggestion should be 1-2 sentences long and immediately actionable.
+    
+    Focus on improving: acquisition channels, user growth, retention, CAC optimization, or solving
+    the growth problems mentioned.
     
     IMPORTANT: Your response will be parsed as JSON with this exact structure:
     {{"suggestions": ["suggestion 1", "suggestion 2", "suggestion 3", "suggestion 4", "suggestion 5"]}}
@@ -32,7 +39,9 @@ marketing_analysis_task:
 
 tech_analysis_task:
   description: >
-    Analyze the startup's technical infrastructure:
+    Analyze the startup's technical infrastructure based on the data provided below.
+    
+    Technology Data:
     - Product Type: {product_type}
     - Current Features: {current_features}
     - Tech Stack: {tech_stack}
@@ -40,8 +49,14 @@ tech_analysis_task:
     - AI Usage: {ai_usage}
     - Technical Challenges: {tech_challenges}
     
-    You MUST provide exactly 5 specific, actionable technical suggestions.
-    Each suggestion should be 1-2 sentences long and immediately actionable.
+    Your Task:
+    Based on whatever technical data is provided above (it could be any product type, any number
+    of features, any tech stack technologies, any data strategy), you MUST provide exactly 5
+    specific, actionable technical suggestions. Each suggestion should be 1-2 sentences long
+    and immediately actionable.
+    
+    Focus on improving: scalability, architecture, performance, security, technical debt,
+    or solving the technical challenges mentioned.
     
     IMPORTANT: Your response will be parsed as JSON with this exact structure:
     {{"suggestions": ["suggestion 1", "suggestion 2", "suggestion 3", "suggestion 4", "suggestion 5"]}}
@@ -65,14 +80,22 @@ tech_analysis_task:
 
 org_hr_analysis_task:
   description: >
-    Analyze the startup's organizational structure and people strategy:
+    Analyze the startup's organizational structure and people strategy based on the data provided below.
+    
+    Organization Data:
     - Team Size: {team_size}
     - Founder Roles: {founder_roles}
     - Hiring Plan (Next 3 Months): {hiring_plan}
     - Organizational Challenges: {org_challenges}
     
-    You MUST provide exactly 5 specific, actionable organizational and HR suggestions.
-    Each suggestion should be 1-2 sentences long and immediately actionable.
+    Your Task:
+    Based on whatever organizational data is provided above (it could be any team size, any roles,
+    any hiring plans, any organizational challenges), you MUST provide exactly 5 specific, actionable
+    organizational and HR suggestions. Each suggestion should be 1-2 sentences long and immediately
+    actionable.
+    
+    Focus on improving: hiring, team structure, culture, retention, organizational processes,
+    or solving the organizational challenges mentioned.
     
     IMPORTANT: Your response will be parsed as JSON with this exact structure:
     {{"suggestions": ["suggestion 1", "suggestion 2", "suggestion 3", "suggestion 4", "suggestion 5"]}}
@@ -96,15 +119,23 @@ org_hr_analysis_task:
 
 competitive_analysis_task:
   description: >
-    Analyze the startup's competitive landscape and market position:
+    Analyze the startup's competitive landscape and market position based on the data provided below.
+    
+    Competition Data:
     - Known Competitors: {competitors}
     - Unique Advantage: {unique_advantage}
     - Pricing Model: {pricing_model}
     - Market Risks: {market_risks}
     - Product Type: {product_type}
     
-    You MUST provide exactly 5 specific, actionable competitive strategy suggestions.
-    Each suggestion should be 1-2 sentences long and immediately actionable.
+    Your Task:
+    Based on whatever competitive data is provided above (it could be any number of competitors,
+    any unique advantage, any pricing model, any market risks), you MUST provide exactly 5 specific,
+    actionable competitive strategy suggestions. Each suggestion should be 1-2 sentences long and
+    immediately actionable.
+    
+    Focus on improving: differentiation, positioning, competitive threats, market opportunities,
+    or addressing the market risks mentioned.
     
     IMPORTANT: Your response will be parsed as JSON with this exact structure:
     {{"suggestions": ["suggestion 1", "suggestion 2", "suggestion 3", "suggestion 4", "suggestion 5"]}}
@@ -128,7 +159,9 @@ competitive_analysis_task:
 
 finance_analysis_task:
   description: >
-    Analyze the startup's financial health and sustainability:
+    Analyze the startup's financial health and sustainability based on the data provided below.
+    
+    Finance Data:
     - Monthly Burn Rate: {monthly_burn}
     - Current Revenue: {current_revenue}
     - Funding Status: {funding_status}
@@ -136,8 +169,13 @@ finance_analysis_task:
     - Financial Concerns: {financial_concerns}
     - Team Size: {team_size}
     
-    You MUST provide exactly 5 specific, actionable financial suggestions.
-    Each suggestion should be 1-2 sentences long and immediately actionable.
+    Your Task:
+    Based on whatever financial data is provided above (it could be any burn rate, any revenue,
+    any funding status, any runway), you MUST provide exactly 5 specific, actionable financial
+    suggestions. Each suggestion should be 1-2 sentences long and immediately actionable.
+    
+    Focus on improving: burn rate, revenue growth, unit economics, fundraising, cost optimization,
+    or addressing the financial concerns mentioned.
     
     IMPORTANT: Your response will be parsed as JSON with this exact structure:
     {{"suggestions": ["suggestion 1", "suggestion 2", "suggestion 3", "suggestion 4", "suggestion 5"]}}

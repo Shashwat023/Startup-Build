@@ -23,36 +23,15 @@ class BoardPanelCrew:
         
         os.environ['GROQ_API_KEY'] = groq_api_key
         
-        # Configure LLM using OpenAI client with explicit Groq endpoint
-        try:
-            # Initialize LLM with explicit Groq configuration
-            self.llm = LLM(
-                model=groq_model,
-                api_key=groq_api_key,
-                api_base="https://api.groq.com/openai/v1",
-                temperature=0.7,
-                max_tokens=1500,
-                timeout=60,
-                max_retries=3,
-            )
-            
-            print("LLM initialized successfully with explicit Groq endpoint")
-            
-        except Exception as e:
-            print(f"LLM initialization failed: {e}")
-            # Try with groq/ prefix as fallback
-            try:
-                self.llm = LLM(
-                    model=f"groq/{groq_model}",
-                    api_key=groq_api_key,
-                    temperature=0.7,
-                    max_tokens=1500,
-                    timeout=60,
-                    max_retries=3,
-                )
-                print("LLM initialized with Groq prefix format")
-            except Exception as e2:
-                raise Exception(f"Failed to initialize LLM with both methods: {e}, {e2}")
+        # Reduced max_retries - cooldown and retry logic handled at pipeline level
+        self.llm = LLM(
+            model=f"groq/{groq_model}",
+            api_key=groq_api_key,
+            temperature=0.7,
+            max_tokens=1500,
+            timeout=60,
+            max_retries=1,  # Single retry - pipeline handles cooldown
+        )
         
         super(BoardPanelCrew, self).__init__()
 
@@ -133,17 +112,56 @@ class BoardPanelCrew:
 
     @crew
     def crew(self) -> Crew:
-        """Creates the BoardPanel crew with sequential execution and rate limit management."""
+        """Creates the BoardPanel crew with sequential execution."""
         return Crew(
             agents=self.agents,
             tasks=self.tasks,
             process=Process.sequential,
             verbose=True,
-            # Add delay between tasks to avoid rate limits
-            step_callback=self._rate_limit_callback,
+            # Note: Cooldown is handled at pipeline level in api.py
         )
-    
-    def _rate_limit_callback(self, step_output):
-        """Add a small delay between tasks to avoid hitting rate limits."""
-        time.sleep(2)  # 2 second delay between tasks
-        return step_output
+
+    def get_agent_by_name(self, agent_name: str) -> Agent:
+        """Get an agent instance by name."""
+        agent_map = {
+            "finance_advisor": self.finance_advisor,
+            "marketing_advisor": self.marketing_advisor,
+            "tech_lead": self.tech_lead,
+            "org_hr_strategist": self.org_hr_strategist,
+            "competitive_analyst": self.competitive_analyst,
+        }
+        if agent_name not in agent_map:
+            raise ValueError(f"Unknown agent: {agent_name}")
+        return agent_map[agent_name]()
+
+    def get_task_by_name(self, task_name: str) -> Task:
+        """Get a task instance by name."""
+        task_map = {
+            "finance_analysis_task": self.finance_analysis_task,
+            "marketing_analysis_task": self.marketing_analysis_task,
+            "tech_analysis_task": self.tech_analysis_task,
+            "org_hr_analysis_task": self.org_hr_analysis_task,
+            "competitive_analysis_task": self.competitive_analysis_task,
+        }
+        if task_name not in task_map:
+            raise ValueError(f"Unknown task: {task_name}")
+        return task_map[task_name]()
+
+    def run_single_task(self, agent_name: str, task_name: str, inputs: dict):
+        """
+        Run a single agent task for pipeline-controlled execution.
+        
+        This allows the pipeline to control timing between agents.
+        """
+        agent = self.get_agent_by_name(agent_name)
+        task = self.get_task_by_name(task_name)
+        
+        # Create a mini-crew with just this agent and task
+        single_crew = Crew(
+            agents=[agent],
+            tasks=[task],
+            process=Process.sequential,
+            verbose=True,
+        )
+        
+        return single_crew.kickoff(inputs=inputs)

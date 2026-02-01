@@ -1,44 +1,98 @@
 marketing_analysis_task:
   description: >
-    Analyze marketing strengths from: Channels={marketing_channels}, Users={monthly_users}, CAC={cac}, Retention={retention_strategy}
+    Analyze the marketing strengths of this startup based on the provided data.
     
-    Output JSON: {{"agent_name": "Marketing", "strengths": ["strength 1", "strength 2", "strength 3"]}}
+    Marketing Data:
+    - Marketing Channels: {marketing_channels}
+    - Monthly Users: {monthly_users}
+    - Customer Acquisition Cost: {cac}
+    - Retention Strategy: {retention_strategy}
+    - Growth Problems: {growth_problems}
+    
+    Your task: Identify 3-5 specific marketing STRENGTHS (positive aspects) from this data.
+    Focus on what the startup is doing WELL in marketing.
+    
+    Output must be valid JSON with this exact structure:
+    {{"agent_name": "Marketing", "strengths": ["first strength as complete sentence", "second strength as complete sentence", "third strength as complete sentence"]}}
   expected_output: >
-    JSON with agent_name and 3-5 marketing strengths
+    JSON object with agent_name="Marketing" and array of 3-5 marketing strengths as complete sentences
   agent: marketing_advisor
 
 tech_analysis_task:
   description: >
-    Analyze tech strengths from: Type={product_type}, Features={current_features}, Stack={tech_stack}, AI={ai_usage}
+    Analyze the technical strengths of this startup based on the provided data.
     
-    Output JSON: {{"agent_name": "Tech", "strengths": ["strength 1", "strength 2", "strength 3"]}}
+    Technology Data:
+    - Product Type: {product_type}
+    - Current Features: {current_features}
+    - Technology Stack: {tech_stack}
+    - Data Strategy: {data_strategy}
+    - AI Usage: {ai_usage}
+    - Technical Challenges: {tech_challenges}
+    
+    Your task: Identify 3-5 specific technical STRENGTHS (positive aspects) from this data.
+    Focus on what the startup has built WELL technically.
+    
+    Output must be valid JSON with this exact structure:
+    {{"agent_name": "Tech", "strengths": ["first strength as complete sentence", "second strength as complete sentence", "third strength as complete sentence"]}}
   expected_output: >
-    JSON with agent_name and 3-5 technical strengths
+    JSON object with agent_name="Tech" and array of 3-5 technical strengths as complete sentences
   agent: tech_lead
 
 org_hr_analysis_task:
   description: >
-    Analyze organizational strengths from: Team={team_size}, Roles={founder_roles}, Hiring={hiring_plan}
+    Analyze the organizational strengths of this startup based on the provided data.
     
-    Output JSON: {{"agent_name": "Org", "strengths": ["strength 1", "strength 2", "strength 3"]}}
+    Organization Data:
+    - Team Size: {team_size}
+    - Founder Roles: {founder_roles}
+    - Hiring Plan (Next 3 Months): {hiring_plan}
+    - Organizational Challenges: {org_challenges}
+    
+    Your task: Identify 3-5 specific organizational STRENGTHS (positive aspects) from this data.
+    Focus on what the startup is doing WELL organizationally.
+    
+    Output must be valid JSON with this exact structure:
+    {{"agent_name": "Org", "strengths": ["first strength as complete sentence", "second strength as complete sentence", "third strength as complete sentence"]}}
   expected_output: >
-    JSON with agent_name and 3-5 organizational strengths
+    JSON object with agent_name="Org" and array of 3-5 organizational strengths as complete sentences
   agent: org_hr_strategist
 
 competitive_analysis_task:
   description: >
-    Analyze competitive strengths from: Competitors={competitors}, Advantage={unique_advantage}, Pricing={pricing_model}
+    Analyze the competitive strengths of this startup based on the provided data.
     
-    Output JSON: {{"agent_name": "Competitive", "strengths": ["strength 1", "strength 2", "strength 3"]}}
+    Competition Data:
+    - Known Competitors: {competitors}
+    - Unique Advantage: {unique_advantage}
+    - Pricing Model: {pricing_model}
+    - Market Risks: {market_risks}
+    
+    Your task: Identify 3-5 specific competitive STRENGTHS (positive aspects) from this data.
+    Focus on what gives the startup an EDGE in the market.
+    
+    Output must be valid JSON with this exact structure:
+    {{"agent_name": "Competitive", "strengths": ["first strength as complete sentence", "second strength as complete sentence", "third strength as complete sentence"]}}
   expected_output: >
-    JSON with agent_name and 3-5 competitive strengths
+    JSON object with agent_name="Competitive" and array of 3-5 competitive strengths as complete sentences
   agent: competitive_analyst
 
 finance_analysis_task:
   description: >
-    Analyze financial strengths from: Burn={monthly_burn}, Revenue={current_revenue}, Funding={funding_status}, Runway={runway_months}
+    Analyze the financial strengths of this startup based on the provided data.
     
-    Output JSON: {{"agent_name": "Finance", "strengths": ["strength 1", "strength 2", "strength 3"]}}
+    Finance Data:
+    - Monthly Burn Rate: {monthly_burn}
+    - Current Revenue: {current_revenue}
+    - Funding Status: {funding_status}
+    - Runway (Months): {runway_months}
+    - Financial Concerns: {financial_concerns}
+    
+    Your task: Identify 3-5 specific financial STRENGTHS (positive aspects) from this data.
+    Focus on what the startup is doing WELL financially.
+    
+    Output must be valid JSON with this exact structure:
+    {{"agent_name": "Finance", "strengths": ["first strength as complete sentence", "second strength as complete sentence", "third strength as complete sentence"]}}
   expected_output: >
-    JSON with agent_name and 3-5 financial strengths
+    JSON object with agent_name="Finance" and array of 3-5 financial strengths as complete sentences
   agent: finance_advisor

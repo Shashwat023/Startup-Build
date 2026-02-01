@@ -1,23 +1,33 @@
 marketing_analysis_task:
   description: >
-    Analyze the startup's marketing and growth metrics with the following data:
+    You are analyzing a startup's marketing and growth metrics. The data provided represents the CURRENT STATE
+    of their marketing efforts, regardless of how many or few data points they have provided. Your job is to
+    work with whatever information is given and provide strategic guidance for the next 30 days.
     
-    Marketing Channels: {marketing_channels}
-    Monthly Users: {monthly_users}
-    Customer Acquisition Cost: {cac}
-    Retention Strategy: {retention_strategy}
-    Growth Problems: {growth_problems}
+    MARKETING DATA PROVIDED:
+    - Marketing Channels Being Used: {marketing_channels}
+    - Current Monthly Active Users: {monthly_users}
+    - Customer Acquisition Cost (CAC): {cac}
+    - Current Retention Strategy: {retention_strategy}
+    - Key Growth Problems/Challenges: {growth_problems}
     
-    Based on this data, create a NEXT MONTH ROADMAP with week-by-week action plan for 30 days.
+    IMPORTANT INSTRUCTIONS:
+    - The user may provide 1 marketing channel or 20 channels - work with what's given
+    - They may have listed 2 features or 50 features - assess ALL of them
+    - Some fields may say "None specified" or "Not tracked" - that's valuable information too
+    - Your recommendations should be based on THEIR ACTUAL SITUATION, not the example data
+    - Focus on practical, actionable steps they can take in the next 30 days given their current state
+    
+    Create a NEXT MONTH ROADMAP with week-by-week action plan for 30 days based on THEIR SPECIFIC DATA.
     
     You must respond ONLY with valid JSON in this exact format (no markdown, no extra text):
     {{
       "agent_name": "Marketing Advisor",
       "next_month_roadmap": [
-        "Week 1: [Specific marketing action items for week 1]",
-        "Week 2: [Specific marketing action items for week 2]",
-        "Week 3: [Specific marketing action items for week 3]",
-        "Week 4: [Specific marketing action items for week 4]"
+        "Week 1: [Specific marketing action items tailored to THEIR channels and challenges]",
+        "Week 2: [Specific marketing action items tailored to THEIR situation]",
+        "Week 3: [Specific marketing action items tailored to THEIR data]",
+        "Week 4: [Specific marketing action items tailored to THEIR needs]"
       ]
     }}
     
@@ -27,25 +37,36 @@ marketing_analysis_task:
 
 tech_analysis_task:
   description: >
-    Analyze the startup's technology and product infrastructure with the following data:
+    You are analyzing a startup's technology and product infrastructure. The data provided represents 
+    THEIR ACTUAL TECH STACK and situation, which will be different for every startup. Your role is to 
+    provide guidance based on what they have, not what you think they should have.
     
-    Product Type: {product_type}
-    Current Features: {current_features}
-    Tech Stack: {tech_stack}
-    Data Strategy: {data_strategy}
-    AI Usage: {ai_usage}
-    Tech Challenges: {tech_challenges}
+    TECHNOLOGY DATA PROVIDED:
+    - Product Type: {product_type}
+    - Current Product Features: {current_features}
+    - Technology Stack: {tech_stack}
+    - Data Strategy: {data_strategy}
+    - AI Usage Status: {ai_usage}
+    - Technical Challenges: {tech_challenges}
     
-    Based on this data, create a NEXT MONTH ROADMAP with sprint-by-sprint technical plan for 30 days.
+    IMPORTANT INSTRUCTIONS:
+    - They may have 3 features or 30 features in their product - analyze what they ACTUALLY have
+    - Their tech stack may include 2 technologies or 15 technologies - work with their REAL stack
+    - Some startups use AI heavily, others don't - respect their current state
+    - If they list "None specified" for something, that tells you they need help in that area
+    - Your roadmap should address THEIR SPECIFIC technical challenges, not generic advice
+    - Recommendations must be feasible given THEIR CURRENT tech stack and resources
+    
+    Create a NEXT MONTH ROADMAP with sprint-by-sprint technical plan for 30 days based on THEIR SPECIFIC SITUATION.
     
     You must respond ONLY with valid JSON in this exact format (no markdown, no extra text):
     {{
       "agent_name": "Tech Lead",
       "next_month_roadmap": [
-        "Sprint 1 (Days 1-7): [Specific technical tasks]",
-        "Sprint 2 (Days 8-14): [Specific technical tasks]",
-        "Sprint 3 (Days 15-21): [Specific technical tasks]",
-        "Sprint 4 (Days 22-30): [Specific technical tasks]"
+        "Sprint 1 (Days 1-7): [Specific technical tasks for THEIR stack and challenges]",
+        "Sprint 2 (Days 8-14): [Specific technical tasks for THEIR situation]",
+        "Sprint 3 (Days 15-21): [Specific technical tasks for THEIR needs]",
+        "Sprint 4 (Days 22-30): [Specific technical tasks for THEIR context]"
       ]
     }}
     
@@ -55,23 +76,34 @@ tech_analysis_task:
 
 org_hr_analysis_task:
   description: >
-    Analyze the startup's team structure and organizational dynamics with the following data:
+    You are analyzing a startup's team structure and organizational dynamics. Every startup has a unique
+    team composition, and your role is to provide guidance based on THEIR SPECIFIC organizational situation,
+    not based on any template or example.
     
-    Team Size: {team_size}
-    Founder Roles: {founder_roles}
-    Hiring Plan (Next 3 Months): {hiring_plan}
-    Organizational Challenges: {org_challenges}
+    ORGANIZATIONAL DATA PROVIDED:
+    - Current Team Size: {team_size}
+    - Founder Roles: {founder_roles}
+    - Hiring Plan for Next 3 Months: {hiring_plan}
+    - Organizational Challenges: {org_challenges}
     
-    Based on this data, create a NEXT MONTH ROADMAP for hiring and organizational development.
+    IMPORTANT INSTRUCTIONS:
+    - A startup may have 2 people or 200 people - tailor advice to THEIR ACTUAL team size
+    - They may have 1 founder or 5 founders - work with THEIR specific founding team structure
+    - They may plan to hire 0 people or 10 people - respect THEIR hiring timeline
+    - "None specified" means they need help identifying what they should do
+    - Your recommendations must be realistic for a team of THEIR SIZE facing THEIR CHALLENGES
+    - Consider their actual organizational pain points when creating the roadmap
+    
+    Create a NEXT MONTH ROADMAP for hiring and organizational development based on THEIR REAL SITUATION.
     
     You must respond ONLY with valid JSON in this exact format (no markdown, no extra text):
     {{
       "agent_name": "Org/HR Strategist",
       "next_month_roadmap": [
-        "Week 1: [Specific org/hiring activities]",
-        "Week 2: [Specific org/hiring activities]",
-        "Week 3: [Specific org/hiring activities]",
-        "Week 4: [Specific org/hiring activities]"
+        "Week 1: [Specific org/hiring activities for THEIR team size and structure]",
+        "Week 2: [Specific org/hiring activities for THEIR situation]",
+        "Week 3: [Specific org/hiring activities for THEIR challenges]",
+        "Week 4: [Specific org/hiring activities for THEIR needs]"
       ]
     }}
     
@@ -81,24 +113,35 @@ org_hr_analysis_task:
 
 competitive_analysis_task:
   description: >
-    Analyze the startup's competitive position and market dynamics with the following data:
+    You are analyzing a startup's competitive position and market dynamics. Every startup operates in a 
+    unique competitive landscape, and your analysis must be based on THEIR SPECIFIC market situation,
+    competitors, and positioning.
     
-    Known Competitors: {competitors}
-    Unique Advantage: {unique_advantage}
-    Pricing Model: {pricing_model}
-    Market Risks: {market_risks}
-    Product Type: {product_type}
+    COMPETITIVE/MARKET DATA PROVIDED:
+    - Known Competitors: {competitors}
+    - Unique Competitive Advantage: {unique_advantage}
+    - Current Pricing Model: {pricing_model}
+    - Market Risks: {market_risks}
+    - Product Type: {product_type}
     
-    Based on this data, create a NEXT MONTH ROADMAP for competitive positioning.
+    IMPORTANT INSTRUCTIONS:
+    - They may face 1 competitor or 20 competitors - analyze ALL the ones they've identified
+    - Their advantage may be clear or undefined - help them based on what they've shared
+    - They may have simple or complex pricing - work with THEIR model
+    - "Not clearly defined" or "None identified" means they need strategic help in that area
+    - Your competitive roadmap must address THEIR ACTUAL competitors and market position
+    - Consider the specific risks they've identified in THEIR market
+    
+    Create a NEXT MONTH ROADMAP for competitive positioning based on THEIR REAL COMPETITIVE LANDSCAPE.
     
     You must respond ONLY with valid JSON in this exact format (no markdown, no extra text):
     {{
       "agent_name": "Competitive Intelligence Analyst",
       "next_month_roadmap": [
-        "Week 1: [Specific competitive actions]",
-        "Week 2: [Specific competitive actions]",
-        "Week 3: [Specific competitive actions]",
-        "Week 4: [Specific competitive actions]"
+        "Week 1: [Specific competitive actions for THEIR market and competitors]",
+        "Week 2: [Specific competitive actions for THEIR positioning]",
+        "Week 3: [Specific competitive actions for THEIR situation]",
+        "Week 4: [Specific competitive actions for THEIR challenges]"
       ]
     }}
     
@@ -108,25 +151,36 @@ competitive_analysis_task:
 
 finance_analysis_task:
   description: >
-    Analyze the startup's financial health and runway with the following data:
+    You are analyzing a startup's financial health and runway. Every startup has a unique financial 
+    situation, and your recommendations must be based on THEIR ACTUAL numbers and financial context,
+    not generic advice or example scenarios.
     
-    Monthly Burn: {monthly_burn}
-    Current Revenue: {current_revenue}
-    Funding Status: {funding_status}
-    Runway (Months): {runway_months}
-    Financial Concerns: {financial_concerns}
-    Team Size: {team_size}
+    FINANCIAL DATA PROVIDED:
+    - Monthly Burn Rate: {monthly_burn}
+    - Current Monthly Revenue (MRR): {current_revenue}
+    - Funding Status: {funding_status}
+    - Runway Remaining: {runway_months}
+    - Key Financial Concerns: {financial_concerns}
+    - Team Size (for cost context): {team_size}
     
-    Based on this data, create a NEXT MONTH ROADMAP for financial management.
+    IMPORTANT INSTRUCTIONS:
+    - They may burn $5K/month or $500K/month - tailor advice to THEIR burn rate
+    - Revenue may be $0 or $1M+ - work with THEIR actual revenue numbers
+    - Runway may be 3 months or 36 months - urgency depends on THEIR situation
+    - "Not tracked" means they need help establishing financial discipline
+    - Your financial roadmap must address THEIR SPECIFIC financial concerns and constraints
+    - Consider their funding stage when making recommendations
+    
+    Create a NEXT MONTH ROADMAP for financial management based on THEIR REAL FINANCIAL SITUATION.
     
     You must respond ONLY with valid JSON in this exact format (no markdown, no extra text):
     {{
       "agent_name": "Finance & Burn-Rate Advisor",
       "next_month_roadmap": [
-        "Week 1: [Specific financial tasks]",
-        "Week 2: [Specific financial tasks]",
-        "Week 3: [Specific financial tasks]",
-        "Week 4: [Specific financial tasks]"
+        "Week 1: [Specific financial tasks for THEIR burn rate and runway]",
+        "Week 2: [Specific financial tasks for THEIR financial situation]",
+        "Week 3: [Specific financial tasks for THEIR constraints]",
+        "Week 4: [Specific financial tasks for THEIR needs]"
       ]
     }}
     

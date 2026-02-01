@@ -24,21 +24,21 @@ class BoardPanelCrew:
 
     def __init__(self):
         groq_api_key = os.getenv('GROQ_API_KEY', '')
-        groq_model = os.getenv('GROQ_MODEL', 'llama-3.1-8b-instant')
+        groq_model = os.getenv('GROQ_MODEL', 'llama-3.3-70b-versatile')
         
         if not groq_api_key:
             raise ValueError("GROQ_API_KEY not found")
         
         os.environ['GROQ_API_KEY'] = groq_api_key
         
-        # LLM configuration for Groq (using llama-3.1-8b-instant)
-        # Note: Groq models don't support response_format parameter
-        # Structured output is handled by output_pydantic in task definitions
+        # LLM with JSON mode enabled for structured output
+        # Increased max_tokens to ensure JSON completion
         self.llm = LLM(
             model=f"groq/{groq_model}",
             api_key=groq_api_key,
             temperature=0.3,
-            max_tokens=1024
+            max_tokens=1024,  # Increased from 600 to ensure complete JSON generation
+            response_format={"type": "json_object"}
         )
         
         super(BoardPanelCrew, self).__init__()
@@ -148,3 +148,49 @@ class BoardPanelCrew:
             verbose=True,
             max_rpm=3
         )
+
+    def get_agent_by_name(self, agent_name: str) -> Agent:
+        """Get an agent instance by name for pipeline-controlled execution."""
+        agent_map = {
+            "finance_advisor": self.finance_advisor,
+            "marketing_advisor": self.marketing_advisor,
+            "tech_lead": self.tech_lead,
+            "org_hr_strategist": self.org_hr_strategist,
+            "competitive_analyst": self.competitive_analyst,
+        }
+        if agent_name not in agent_map:
+            raise ValueError(f"Unknown agent: {agent_name}")
+        return agent_map[agent_name]()
+
+    def get_task_by_name(self, task_name: str) -> Task:
+        """Get a task instance by name for pipeline-controlled execution."""
+        task_map = {
+            "finance_analysis_task": self.finance_analysis_task,
+            "marketing_analysis_task": self.marketing_analysis_task,
+            "tech_analysis_task": self.tech_analysis_task,
+            "org_hr_analysis_task": self.org_hr_analysis_task,
+            "competitive_analysis_task": self.competitive_analysis_task,
+        }
+        if task_name not in task_map:
+            raise ValueError(f"Unknown task: {task_name}")
+        return task_map[task_name]()
+
+    def run_single_task(self, agent_name: str, task_name: str, inputs: dict):
+        """
+        Run a single agent task for pipeline-controlled execution.
+        
+        This allows the pipeline to control timing between agents,
+        enforcing cooldown periods and controlled retries.
+        """
+        agent = self.get_agent_by_name(agent_name)
+        task = self.get_task_by_name(task_name)
+        
+        # Create a mini-crew with just this agent and task
+        single_crew = Crew(
+            agents=[agent],
+            tasks=[task],
+            process=Process.sequential,
+            verbose=True,
+        )
+        
+        return single_crew.kickoff(inputs=inputs)

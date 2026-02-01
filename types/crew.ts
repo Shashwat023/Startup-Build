@@ -97,3 +97,37 @@ export interface CrewAnalysisResponse<T> {
 export interface CrewAnalysisRequest {
     startup_data: StartupInput;
 }
+
+// Pipeline progress types (for sequential execution)
+export type AgentStatusType = "pending" | "running" | "cooling_down" | "completed" | "failed" | "retrying";
+export type PipelineStatusType = "queued" | "running" | "completed" | "failed";
+
+export interface AgentStatus {
+    agent_name: string;
+    display_name: string;
+    status: AgentStatusType;
+    started_at?: string;
+    completed_at?: string;
+    cooldown_remaining?: number;
+    attempt: number;
+    error?: string;
+    result?: string[];
+}
+
+export interface PipelineStatus {
+    analysis_id: string;
+    pipeline_status: PipelineStatusType;
+    current_agent?: string;
+    current_phase?: "running" | "cooling_down";
+    agents: AgentStatus[];
+    started_at?: string;
+    completed_at?: string;
+    total_cooldown_seconds: number;
+}
+
+// Extended response with pipeline info
+export interface CrewAnalysisResponseWithPipeline<T> extends CrewAnalysisResponse<T> {
+    pipeline?: PipelineStatus;
+    stream_url?: string;
+    message?: string;
+}
