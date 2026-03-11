@@ -1,64 +1,103 @@
-# StartupAI - AI-Powered Startup Orchestration Platform
+# 🚀 StartupAI: AI-Powered Startup Orchestration Platform
 
-StartupAI is a comprehensive platform designed to transform your startup idea into reality. By leveraging advanced AI agents and machine learning models, StartupAI provides founders with the tools they need for ideation, analysis, team building, and investor outreach.
+StartupAI is a comprehensive, end-to-end platform designed to transform raw startup ideas into investment-ready business propositions. By leveraging a multi-agent orchestration system and advanced machine learning models, StartupAI provides founders with a professional toolkit for ideation, strategic analysis, team building, and investor outreach.
 
-## 🚀 Core Functionalities
+---
 
-### 1. Board Panel Advisory (CrewAI)
-Get a dedicated AI board to analyze your startup.
-*   **Actionable Roadmaps**: Generate step-by-step plans for growth.
-*   **Strengths & Weaknesses**: Identify what's working and what needs improvement.
-*   **Suggestions**: Receive strategic advice tailored to your business model.
+## ✨ Core Features
 
-### 2. Idea Enhancer (LangGraph)
-Transform raw ideas into robust business propositions.
-*   Uses a specialized agent to research, refine, and structure your initial concept.
+### 1. 🤖 Multimodal RAG Agent (Chatbot)
+A powerful AI assistant that understands your business documents.
+*   **Multimodal Queries**: Ask questions via **Text** or **Voice**.
+*   **Document Intelligence**: Upload PDFs or text files for instant analysis.
+*   **Source Tracking**: Get answers with clear citations from your uploaded knowledge base.
 
-### 3. Chatbot (Multimodal RAG)
-A powerful AI assistant for your startup documents.
-*   **Document Analysis**: Upload PDFs or text files and ask questions.
-*   **Multimodal Support**: Understands context from various data sources locally.
+### 2. 👥 Board Panel Advisory (CrewAI)
+Get strategic insights from a dedicated panel of specialized AI agents.
+*   **Actionable Roadmaps**: Step-by-step 30-day plans for growth and execution.
+*   **Strengths & Weaknesses**: Objective analysis of your business model and tech stack.
+*   **Strategic Suggestions**: recibir strategic advice tailored to your specific industry and market stage.
 
-### 4. Pitch Generator (Iterative Pitcher)
-Craft a winning pitch through an iterative workflow.
-*   **AI Critique**: Receive detailed scores and feedback on your pitch.
-*   **Human-in-the-Loop**: Approve or reject AI refinements until the pitch is perfect.
-*   **Final Package**: Generates elevator pitches, executive summaries, and Q&A guides.
+### 3. 💡 Idea Enhancer (LangGraph)
+Transform high-level concepts into robust business propositions using a specialized LangGraph workflow.
+*   **Normalization & Structuring**: Refines raw ideas into professional formats.
+*   **SWOT Analysis**: Identifies internal strengths/weaknesses and external opportunities/threats.
+*   **Market Fit Scoring**: Evaluates your solution against target user needs.
 
-### 5. Startup Success Predictor
-Data-driven insights into your startup's future.
-*   Utilizes a Machine Learning model to predict the probability of success based on milestones, relationships, and funding.
+### 4. 🎤 Iterative Pitch Generator (Pitcher)
+Craft a winning pitch through an AI-powered "Human-in-the-Loop" workflow.
+*   **AI Critique**: Receive detailed scores (Clarity, Problem, Solution, Traction) and constructive feedback.
+*   **Refinement Loop**: Approve or reject AI refinements with specific feedback until the pitch is perfect.
+*   **Final Package**: Generates elevator pitches, executive summaries, Q&A guides, and delivery tips.
 
-### 6. Investor Connect
-Automate your outreach to potential investors.
-*   Submit your startup details and connect via automated n8n workflows.
+### 5. 📈 Startup Success Predictor
+Data-driven insights into your startup's future using Machine Learning.
+*   **Predictive Analytics**: Calculates the probability of acquisition vs. operating vs. failure.
+*   **Metric Analysis**: Evaluates milestones, funding history, and relationship velocity.
 
-## 🛠️ Tech Stack
+### 6. 🤝 Investor Connect
+Automate your outreach to potential investors via professional workflows.
+*   **n8n Orchestration**: Seamlessly connect with investors through automated email and CRM workflows.
 
-*   **Frontend**: [Next.js 15](https://nextjs.org/), [React](https://reactjs.org/), [Tailwind CSS](https://tailwindcss.com/), [Framer Motion](https://www.framer.com/motion/).
-*   **Backend**: Next.js API Route Handlers.
-*   **AI Local Agents**: Python, [LangChain](https://www.langchain.com/), [LangGraph](https://www.langchain.com/langgraph), [CrewAI](https://www.crewai.com/).
-*   **Database**: [MongoDB](https://www.mongodb.com/).
-*   **Deployment/Automation**: [n8n](https://n8n.io/), Uvicorn.
+---
+
+## 🛠️ Technical Architecture
+
+### Frontend
+*   **Framework**: [Next.js 15](https://nextjs.org/) (App Router)
+*   **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+*   **Animations**: [Framer Motion](https://www.framer.com/motion/) & [GSAP](https://greensock.com/gsap/)
+*   **Authentication**: [NextAuth.js](https://next-auth.js.org/)
+
+### Backend & AI Infrastructure
+*   **API Layer**: Next.js Route Handlers & FastAPI
+*   **Orchestration**: [LangChain](https://www.langchain.com/), [LangGraph](https://www.langchain.com/langgraph), [CrewAI](https://www.crewai.com/)
+*   **LLMs**: Groq (Llama 3), OpenAI models
+*   **Database**: [MongoDB](https://www.mongodb.com/)
+*   **Automation**: [n8n](https://n8n.io/)
+
+---
 
 ## 🚦 Getting Started
 
-1.  **Environment Setup**:
-    *   Configure your `.env.local` with necessary API keys (Groq, MongoDB, etc.).
-    *   Set up local agent URLs (Pitcher, CrewAI, RAG).
+### 1. Prerequisites
+*   Node.js 18+
+*   Python 3.10+
+*   MongoDB Atlas account
+*   Groq API Key
 
-2.  **Installation**:
-    ```bash
-    npm install
-    ```
+### 2. Environment Configuration
+Create a `.env.local` file in the root directory and add the following:
 
-3.  **Run Development Server**:
-    ```bash
-    npm run dev
-    ```
+| Variable | Description |
+| :--- | :--- |
+| `NEXTAUTH_SECRET` | Secret for session encryption |
+| `GROQ_API_KEY` | Your Groq Cloud API key |
+| `MONGODB_URI` | MongoDB connection string |
+| `NEXT_PUBLIC_N8N_URL` | Your n8n webhook URL |
 
-4.  **Local AI Agents**:
-    Ensure your Python-based local agents are running (e.g., Pitcher Agent, RAG Server) to enable all features.
+### 3. Installation
+```bash
+# Install frontend dependencies
+npm install
+
+# Setup local AI agents (optional but recommended)
+# Each folder in AI_local_files may require its own virtual environment
+```
+
+### 4. Running the Platform
+StartupAI requires several local microservices to enable all features.
+
+**Start AI Agents (PowerShell):**
+```powershell
+./start-all-servers.ps1
+```
+*This will launch 8 services on ports 8000 through 8007.*
+
+**Start Frontend:**
+```bash
+npm run dev
+```
 
 ---
 Built with ❤️ for the startup ecosystem.
