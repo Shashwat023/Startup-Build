@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, Suspense, useRef } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
     StartupInput,
     WeaknessesResults,
@@ -12,7 +12,6 @@ import { Footer } from "@/components/layout/footer";
 
 function WeaknessesContent() {
     const router = useRouter();
-    const searchParams = useSearchParams();
     const [status, setStatus] = useState<"loading" | "streaming" | "completed" | "failed">("loading");
     const [error, setError] = useState<string | null>(null);
     const [results, setResults] = useState<WeaknessesResults | null>(null);
@@ -89,9 +88,9 @@ function WeaknessesContent() {
                     fetchFinalResults(data.analysis_id);
                 };
 
-            } catch (error: any) {
+            } catch (error) {
                 console.error('Error:', error);
-                setError(error.message || 'Failed to start analysis');
+                setError(error instanceof Error ? error.message : 'Failed to start analysis');
                 setStatus("failed");
             }
         };
@@ -126,7 +125,7 @@ function WeaknessesContent() {
                 eventSourceRef.current = null;
             }
         };
-    }, []);
+    }, [router]); // router ref is stable; effect still runs once on mount
 
     if (status === "loading" || status === "streaming") {
         return (

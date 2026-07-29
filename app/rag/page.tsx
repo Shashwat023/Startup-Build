@@ -70,7 +70,6 @@ export default function RAGPage() {
     const [isLoading, setIsLoading] = useState(false);
     const [isRecording, setIsRecording] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
-    const [isLoadingChats, setIsLoadingChats] = useState(true);
 
     // Error State
     const [error, setError] = useState<string | null>(null);
@@ -97,6 +96,8 @@ export default function RAGPage() {
         if (sessionId && messages.length > 0 && session?.user) {
             saveCurrentChat();
         }
+        // saveCurrentChat/session are not memoized; including them would re-save on every render
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [messages, sessionId]);
 
     // Generate unique ID
@@ -122,7 +123,6 @@ export default function RAGPage() {
     // Load chats from MongoDB
     const loadChats = async () => {
         try {
-            setIsLoadingChats(true);
             const response = await fetch("/api/rag/chats");
             if (response.ok) {
                 const data = await response.json();
@@ -130,8 +130,6 @@ export default function RAGPage() {
             }
         } catch (err) {
             console.error("Failed to load chats:", err);
-        } finally {
-            setIsLoadingChats(false);
         }
     };
 
@@ -349,7 +347,7 @@ export default function RAGPage() {
 
             mediaRecorder.start();
             setIsRecording(true);
-        } catch (err) {
+        } catch {
             setError("Microphone access denied. Please enable microphone permissions.");
         }
     };

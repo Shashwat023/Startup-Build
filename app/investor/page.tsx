@@ -68,20 +68,23 @@ export default function InvestorPage() {
             return;
         }
 
+        const n8nUrl = process.env.NEXT_PUBLIC_N8N_URL;
+        if (!n8nUrl) {
+            setError("Investor connection service is not configured.");
+            return;
+        }
+
         setLoading(true);
         setError(null);
 
         try {
-            const response = await fetch(
-                process.env.NEXT_PUBLIC_N8N_URL || "",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(formData),
-                }
-            );
+            const response = await fetch(n8nUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+            });
 
             if (!response.ok) {
                 throw new Error("Failed to submit your startup details. Please try again.");
@@ -138,7 +141,7 @@ export default function InvestorPage() {
                             </span>
                         </h1>
                         <p className="text-xl text-neutral-400 max-w-2xl mx-auto">
-                            Share your startup details and we'll connect you with relevant investors who can help bring your vision to life.
+                            Share your startup details and we&apos;ll connect you with relevant investors who can help bring your vision to life.
                         </p>
                     </motion.div>
 
@@ -161,7 +164,7 @@ export default function InvestorPage() {
                                         Your startup idea has been sent to relevant investors.
                                     </p>
                                     <p className="text-neutral-400 mb-8">
-                                        Our team will review your submission and connect you with suitable investors. You'll hear from us soon at{" "}
+                                        Our team will review your submission and connect you with suitable investors. You&apos;ll hear from us soon at{" "}
                                         <span className="text-[#F0C37A] font-medium">{formData.contact_email}</span>
                                     </p>
                                     <Button

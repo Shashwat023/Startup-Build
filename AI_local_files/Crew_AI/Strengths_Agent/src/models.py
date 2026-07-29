@@ -8,17 +8,18 @@ class AgentStrengthOutput(BaseModel):
     This model is used for LLM structured output to ensure consistent JSON format.
     Flexible design: accepts any strengths regardless of specific content.
     """
+
     agent_name: str = Field(
-        ..., 
-        description="Name of the agent (Marketing, Tech, Org, Competitive, or Finance)"
+        ...,
+        description="Name of the agent (Marketing, Tech, Org, Competitive, or Finance)",
     )
     strengths: List[str] = Field(
-        ..., 
-        min_length=3, 
-        max_length=5, 
-        description="List of 3-5 specific strengths as complete sentences. Each strength should be based on the actual data provided, not pre-defined examples."
+        ...,
+        min_length=3,
+        max_length=5,
+        description="List of 3-5 specific strengths as complete sentences. Each strength should be based on the actual data provided, not pre-defined examples.",
     )
-    
+
     class Config:
         json_schema_extra = {
             "example": {
@@ -26,8 +27,8 @@ class AgentStrengthOutput(BaseModel):
                 "strengths": [
                     "The multi-channel approach provides diversified user acquisition reducing single-channel dependency.",
                     "Current CAC of $85 demonstrates cost-effective customer acquisition relative to industry benchmarks.",
-                    "The retention strategy with email sequences and in-app tutorials creates strong user engagement."
-                ]
+                    "The retention strategy with email sequences and in-app tutorials creates strong user engagement.",
+                ],
             }
         }
 
@@ -100,9 +101,12 @@ class StartupAnalysisReport(BaseModel):
 # Pipeline status models for sequential execution with streaming
 class AgentStatus(BaseModel):
     """Status of a single agent in the pipeline."""
+
     agent_name: str
     display_name: str
-    status: Literal["pending", "running", "cooling_down", "completed", "failed", "retrying"]
+    status: Literal[
+        "pending", "running", "cooling_down", "completed", "failed", "retrying"
+    ]
     started_at: Optional[str] = None
     completed_at: Optional[str] = None
     cooldown_remaining: Optional[int] = None
@@ -113,6 +117,7 @@ class AgentStatus(BaseModel):
 
 class PipelineStatus(BaseModel):
     """Full pipeline execution status."""
+
     analysis_id: str
     pipeline_status: Literal["queued", "running", "completed", "failed"]
     current_agent: Optional[str] = None
@@ -125,6 +130,7 @@ class PipelineStatus(BaseModel):
 
 class StrengthsResults(BaseModel):
     """Complete strengths results from all agents."""
+
     marketing_strengths: List[str] = Field(default_factory=list)
     tech_strengths: List[str] = Field(default_factory=list)
     org_hr_strengths: List[str] = Field(default_factory=list)
@@ -134,6 +140,7 @@ class StrengthsResults(BaseModel):
 
 class AnalysisResult(BaseModel):
     """Complete analysis result with metadata."""
+
     analysis_id: str
     status: str
     submitted_at: str

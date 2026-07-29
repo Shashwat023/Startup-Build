@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { getStartupFormData } from '@/lib/crew-storage';
 
-export async function GET(req: NextRequest) {
+export async function GET() {
     try {
         // Get user session (NextAuth v5)
         const session = await auth();
@@ -18,10 +18,10 @@ export async function GET(req: NextRequest) {
         }
 
         return NextResponse.json({ formData });
-    } catch (error: any) {
+    } catch (error) {
         console.error('Error retrieving startup form data:', error);
         return NextResponse.json(
-            { error: 'Failed to retrieve form data', details: error.message },
+            { error: 'Failed to retrieve form data', details: error instanceof Error ? error.message : String(error) },
             { status: 500 }
         );
     }

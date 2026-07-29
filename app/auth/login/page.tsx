@@ -7,13 +7,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { ArrowLeft, Mail, Lock } from "lucide-react";
 import { motion } from "framer-motion";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -148,7 +146,7 @@ export default function LoginPage() {
 
                         {/* Sign Up Link */}
                         <p className="mt-6 text-center text-sm text-neutral-400">
-                            Don't have an account?{" "}
+                            Don&apos;t have an account?{" "}
                             <Link href="/auth/signup" className="text-[#F0C37A] hover:text-[#E8B960] font-semibold transition-colors">
                                 Sign up
                             </Link>

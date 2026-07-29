@@ -13,7 +13,7 @@ import type { RAGMessage } from "@/lib/rag-storage";
 initializeCollection().catch(console.error);
 
 // GET - List recent chats
-export async function GET(request: NextRequest) {
+export async function GET() {
     try {
         const session = await auth();
         if (!session?.user?.email) {
@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
 }
 
 // DELETE - Delete all chats
-export async function DELETE(request: NextRequest) {
+export async function DELETE() {
     try {
         const session = await auth();
         if (!session?.user?.email) {

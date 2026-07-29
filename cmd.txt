@@ -1,0 +1,56 @@
+StartupAI run commands
+
+Start all local AI services
+powershell -ExecutionPolicy Bypass -File .\start-all-servers.ps1
+
+Single-service launcher examples
+powershell -ExecutionPolicy Bypass -File .\start-server.ps1 rag
+powershell -ExecutionPolicy Bypass -File .\start-server.ps1 predictor
+
+Frontend
+npm run dev
+
+1) Multimodal RAG
+cd AI_local_files\multimodal-RAG
+& .\myvenv\Scripts\Activate.ps1
+python -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+2) CrewAI Roadmap
+cd AI_local_files\Crew_AI\next-month-roadmap
+& .venv\Scripts\Activate.ps1
+cd src 
+python -m uvicorn api:app --host 0.0.0.0 --port 8001 --reload
+
+3) CrewAI Strengths
+cd AI_local_files\Crew_AI\Strengths_Agent\src
+& ..\myvenv\Scripts\Activate.ps1
+python -m uvicorn api:app --host 0.0.0.0 --port 8002 --reload
+
+4) CrewAI Weaknesses
+cd AI_local_files\Crew_AI\Weakness_Agent\src
+& ..\myvenv\Scripts\Activate.ps1
+python -m uvicorn api:app --host 0.0.0.0 --port 8003 --reload
+
+5) CrewAI Suggestions
+cd AI_local_files\Crew_AI\suggestions\src
+& ..\myvenv\Scripts\Activate.ps1
+python -m uvicorn api:app --host 0.0.0.0 --port 8004 --reload
+
+6) Enhancer Agent
+cd AI_local_files\ENHANCER_AGENT
+& .\myvenv\Scripts\Activate.ps1
+python -m uvicorn main:app --host 0.0.0.0 --port 8005 --reload
+
+7) Predictor
+cd AI_local_files\Predictor
+python -m uvicorn main:app --host 0.0.0.0 --port 8006 --reload
+
+8) Pitcher Agent
+cd AI_local_files\Pitcher_Agent
+& .\myvenv\Scripts\Activate.ps1
+python -m uvicorn main:app --host 0.0.0.0 --port 8007 --reload
+
+Notes
+- The CrewAI services expose FastAPI from `src/api.py`.
+- The root helper scripts already wrap the full service list.
+- If a venv activation path fails, recreate the local environment before starting the service.

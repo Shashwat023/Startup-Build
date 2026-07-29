@@ -1,9 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import os
-import json
-from typing import List, Literal
-from typing_extensions import TypedDict
 
 
 from idea import StartupIdeaEnhancer
@@ -15,7 +12,7 @@ from idea import StartupIdeaEnhancer
 app = FastAPI(
     title="Startup Idea Enhancement API",
     description="LangGraph-powered startup idea analysis & enhancement system",
-    version="1.0.0"
+    version="1.0.0",
 )
 
 # ----------------------------------------------------------------------------
@@ -33,6 +30,7 @@ enhancer = StartupIdeaEnhancer(GROQ_API_KEY)
 # REQUEST / RESPONSE MODELS
 # ----------------------------------------------------------------------------
 
+
 class IdeaRequest(BaseModel):
     raw_idea: str
 
@@ -45,13 +43,16 @@ class IdeaResponse(BaseModel):
 # HEALTH CHECK
 # ----------------------------------------------------------------------------
 
+
 @app.get("/")
 def health_check():
     return {"status": "ok", "message": "Startup Idea Enhancer API is running"}
 
+
 # ----------------------------------------------------------------------------
 # MAIN ENDPOINT
 # ----------------------------------------------------------------------------
+
 
 @app.post("/enhance-idea", response_model=IdeaResponse)
 def enhance_idea(request: IdeaRequest):
@@ -60,8 +61,7 @@ def enhance_idea(request: IdeaRequest):
 
         if not result.get("final_output"):
             raise HTTPException(
-                status_code=400,
-                detail=result.get("error", "Idea enhancement failed")
+                status_code=400, detail=result.get("error", "Idea enhancement failed")
             )
 
         return {"result": result["final_output"]}

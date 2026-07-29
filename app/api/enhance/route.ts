@@ -25,7 +25,7 @@ interface EnhancementResponse {
         competitors: Array<{
             name?: string;
             description?: string;
-            [key: string]: any;
+            [key: string]: unknown;
         }>;
         market_size: {
             TAM?: string | number;
@@ -39,7 +39,7 @@ interface EnhancementResponse {
         mvp_scope: string;
         customer_acquisition_channels: string[];
         ethical_legal_sensitivity: string;
-        [key: string]: any;
+        [key: string]: unknown;
     };
 }
 

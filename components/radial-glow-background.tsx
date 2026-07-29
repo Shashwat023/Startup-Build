@@ -1,5 +1,3 @@
-import { cn } from "@/lib/utils";
-
 export const RadialGlowBackground = () => {
   return (
     <div className="min-h-screen w-full bg-[#020617] relative">

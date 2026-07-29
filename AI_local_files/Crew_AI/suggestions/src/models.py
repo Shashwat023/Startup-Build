@@ -52,13 +52,14 @@ class StartupInput(BaseModel):
 # Structured output models for LLM responses - One for each agent type
 class MarketingSuggestions(BaseModel):
     """Structured output for marketing advisor"""
+
     suggestions: List[str] = Field(
         description="List of 3-7 actionable marketing suggestions",
         min_length=3,  # Relaxed from 5 to 3
-        max_length=7
+        max_length=7,
     )
-    
-    @field_validator('suggestions')
+
+    @field_validator("suggestions")
     @classmethod
     def validate_suggestions(cls, v):
         if not v:
@@ -72,13 +73,14 @@ class MarketingSuggestions(BaseModel):
 
 class TechSuggestions(BaseModel):
     """Structured output for tech lead"""
+
     suggestions: List[str] = Field(
         description="List of 3-7 actionable technical suggestions",
         min_length=3,
-        max_length=7
+        max_length=7,
     )
-    
-    @field_validator('suggestions')
+
+    @field_validator("suggestions")
     @classmethod
     def validate_suggestions(cls, v):
         if not v:
@@ -91,13 +93,14 @@ class TechSuggestions(BaseModel):
 
 class OrgHRSuggestions(BaseModel):
     """Structured output for org/HR strategist"""
+
     suggestions: List[str] = Field(
         description="List of 3-7 actionable organizational/HR suggestions",
         min_length=3,
-        max_length=7
+        max_length=7,
     )
-    
-    @field_validator('suggestions')
+
+    @field_validator("suggestions")
     @classmethod
     def validate_suggestions(cls, v):
         if not v:
@@ -110,13 +113,14 @@ class OrgHRSuggestions(BaseModel):
 
 class CompetitiveSuggestions(BaseModel):
     """Structured output for competitive analyst"""
+
     suggestions: List[str] = Field(
         description="List of 3-7 actionable competitive strategy suggestions",
         min_length=3,
-        max_length=7
+        max_length=7,
     )
-    
-    @field_validator('suggestions')
+
+    @field_validator("suggestions")
     @classmethod
     def validate_suggestions(cls, v):
         if not v:
@@ -129,13 +133,14 @@ class CompetitiveSuggestions(BaseModel):
 
 class FinanceSuggestions(BaseModel):
     """Structured output for finance advisor"""
+
     suggestions: List[str] = Field(
         description="List of 3-7 actionable financial suggestions",
         min_length=3,
-        max_length=7
+        max_length=7,
     )
-    
-    @field_validator('suggestions')
+
+    @field_validator("suggestions")
     @classmethod
     def validate_suggestions(cls, v):
         if not v:
@@ -149,16 +154,16 @@ class FinanceSuggestions(BaseModel):
 # Legacy model for backward compatibility
 class AgentSuggestions(BaseModel):
     """Structured output for agent suggestions"""
+
     agent_name: str = Field(description="Name of the agent providing suggestions")
     suggestions: List[str] = Field(
-        description="List of 5-7 actionable suggestions",
-        min_length=5,
-        max_length=7
+        description="List of 5-7 actionable suggestions", min_length=5, max_length=7
     )
 
 
 class AnalysisResults(BaseModel):
     """Complete analysis results from all agents"""
+
     marketing_suggestions: List[str] = Field(default_factory=list)
     tech_suggestions: List[str] = Field(default_factory=list)
     org_hr_suggestions: List[str] = Field(default_factory=list)
@@ -189,9 +194,12 @@ class AnalysisStatus(BaseModel):
 # Pipeline status models for sequential execution with streaming
 class AgentStatus(BaseModel):
     """Status of a single agent in the pipeline."""
+
     agent_name: str
     display_name: str
-    status: Literal["pending", "running", "cooling_down", "completed", "failed", "retrying"]
+    status: Literal[
+        "pending", "running", "cooling_down", "completed", "failed", "retrying"
+    ]
     started_at: Optional[str] = None
     completed_at: Optional[str] = None
     cooldown_remaining: Optional[int] = None
@@ -202,6 +210,7 @@ class AgentStatus(BaseModel):
 
 class PipelineStatus(BaseModel):
     """Full pipeline execution status."""
+
     analysis_id: str
     pipeline_status: Literal["queued", "running", "completed", "failed"]
     current_agent: Optional[str] = None
@@ -214,6 +223,7 @@ class PipelineStatus(BaseModel):
 
 class SuggestionsResults(BaseModel):
     """Complete suggestions results from all agents."""
+
     marketing_suggestions: List[str] = Field(default_factory=list)
     tech_suggestions: List[str] = Field(default_factory=list)
     org_hr_suggestions: List[str] = Field(default_factory=list)
@@ -223,6 +233,7 @@ class SuggestionsResults(BaseModel):
 
 class AnalysisResult(BaseModel):
     """Complete analysis result with metadata."""
+
     analysis_id: str
     status: str
     submitted_at: str

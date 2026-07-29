@@ -125,7 +125,7 @@ export default function PredictorPage() {
                             </span>
                         </h1>
                         <p className="text-xl text-neutral-400 max-w-2xl mx-auto">
-                            Leverage AI to predict your startup's future. Enter your metrics below to get
+                            Leverage AI to predict your startup&apos;s future. Enter your metrics below to get
                             data-driven insights powered by machine learning.
                         </p>
                     </motion.div>

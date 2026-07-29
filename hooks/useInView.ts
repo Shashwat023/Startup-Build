@@ -3,9 +3,11 @@
 import { useInView as useFramerInView } from "framer-motion";
 import { useRef, RefObject } from "react";
 
+type FramerInViewOptions = NonNullable<Parameters<typeof useFramerInView>[1]>;
+
 interface UseInViewOptions {
     once?: boolean;
-    margin?: string;
+    margin?: FramerInViewOptions["margin"];
     amount?: "some" | "all" | number;
 }
 

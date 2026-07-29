@@ -52,24 +52,39 @@ class StartupInput(BaseModel):
 # Pydantic models for structured LLM output
 class AgentRoadmap(BaseModel):
     """Structured output model for agent roadmap."""
+
     agent_name: str = Field(description="Name of the agent")
     next_month_roadmap: List[str] = Field(description="List of 4 weekly action items")
 
 
 class RoadmapResults(BaseModel):
     """Complete roadmap results from all agents."""
-    marketing_roadmap: List[str] = Field(default_factory=list, description="Marketing weekly roadmap")
-    tech_roadmap: List[str] = Field(default_factory=list, description="Tech weekly roadmap")
-    org_hr_roadmap: List[str] = Field(default_factory=list, description="Org/HR weekly roadmap")
-    competitive_roadmap: List[str] = Field(default_factory=list, description="Competitive analysis weekly roadmap")
-    finance_roadmap: List[str] = Field(default_factory=list, description="Finance weekly roadmap")
+
+    marketing_roadmap: List[str] = Field(
+        default_factory=list, description="Marketing weekly roadmap"
+    )
+    tech_roadmap: List[str] = Field(
+        default_factory=list, description="Tech weekly roadmap"
+    )
+    org_hr_roadmap: List[str] = Field(
+        default_factory=list, description="Org/HR weekly roadmap"
+    )
+    competitive_roadmap: List[str] = Field(
+        default_factory=list, description="Competitive analysis weekly roadmap"
+    )
+    finance_roadmap: List[str] = Field(
+        default_factory=list, description="Finance weekly roadmap"
+    )
 
 
 class AgentStatus(BaseModel):
     """Status of a single agent in the pipeline."""
+
     agent_name: str
     display_name: str
-    status: Literal["pending", "running", "cooling_down", "completed", "failed", "retrying"]
+    status: Literal[
+        "pending", "running", "cooling_down", "completed", "failed", "retrying"
+    ]
     started_at: Optional[str] = None
     completed_at: Optional[str] = None
     cooldown_remaining: Optional[int] = None
@@ -80,6 +95,7 @@ class AgentStatus(BaseModel):
 
 class PipelineStatus(BaseModel):
     """Full pipeline execution status."""
+
     analysis_id: str
     pipeline_status: Literal["queued", "running", "completed", "failed"]
     current_agent: Optional[str] = None
@@ -92,6 +108,7 @@ class PipelineStatus(BaseModel):
 
 class AnalysisResult(BaseModel):
     """Complete analysis result with metadata."""
+
     analysis_id: str
     status: str
     submitted_at: str

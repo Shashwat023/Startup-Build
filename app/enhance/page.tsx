@@ -17,7 +17,6 @@ import {
     Zap,
     CheckCircle2,
     BarChart3,
-    Shield,
 } from "lucide-react";
 
 interface EnhancementResult {
@@ -38,7 +37,7 @@ interface EnhancementResult {
         strengths?: string;
         weaknesses?: string;
         gaps?: string;
-        [key: string]: any;
+        [key: string]: unknown;
     }>;
     market_size: {
         tam?: string;
@@ -57,7 +56,7 @@ interface EnhancementResult {
     ethical_legal_sensitivity?: string;
     ethical_legal_sensitivity_level?: string;
     ethical_legal_sensitivity_explanation?: string;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 export default function EnhancePage() {

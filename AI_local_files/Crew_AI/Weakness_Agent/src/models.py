@@ -52,12 +52,19 @@ class StartupInput(BaseModel):
 # Pydantic models for structured LLM output
 class AgentWeaknessOutput(BaseModel):
     """Structured output for agent analysis - weaknesses only"""
+
     agent_name: str = Field(..., description="Name of the agent providing analysis")
-    weaknesses: List[str] = Field(..., description="List of 3-5 specific weaknesses with concrete details", min_items=3, max_items=5)
+    weaknesses: List[str] = Field(
+        ...,
+        description="List of 3-5 specific weaknesses with concrete details",
+        min_length=3,
+        max_length=5,
+    )
 
 
 class WeaknessAnalysisResult(BaseModel):
     """Complete weakness analysis from all agents"""
+
     marketing_weaknesses: List[str] = Field(default_factory=list)
     tech_weaknesses: List[str] = Field(default_factory=list)
     org_hr_weaknesses: List[str] = Field(default_factory=list)
@@ -87,9 +94,12 @@ class StartupAnalysisReport(BaseModel):
 # Pipeline status models for sequential execution with streaming
 class AgentStatus(BaseModel):
     """Status of a single agent in the pipeline."""
+
     agent_name: str
     display_name: str
-    status: Literal["pending", "running", "cooling_down", "completed", "failed", "retrying"]
+    status: Literal[
+        "pending", "running", "cooling_down", "completed", "failed", "retrying"
+    ]
     started_at: Optional[str] = None
     completed_at: Optional[str] = None
     cooldown_remaining: Optional[int] = None
@@ -100,6 +110,7 @@ class AgentStatus(BaseModel):
 
 class PipelineStatus(BaseModel):
     """Full pipeline execution status."""
+
     analysis_id: str
     pipeline_status: Literal["queued", "running", "completed", "failed"]
     current_agent: Optional[str] = None
@@ -112,6 +123,7 @@ class PipelineStatus(BaseModel):
 
 class WeaknessesResults(BaseModel):
     """Complete weaknesses results from all agents."""
+
     marketing_weaknesses: List[str] = Field(default_factory=list)
     tech_weaknesses: List[str] = Field(default_factory=list)
     org_hr_weaknesses: List[str] = Field(default_factory=list)
@@ -121,6 +133,7 @@ class WeaknessesResults(BaseModel):
 
 class AnalysisResult(BaseModel):
     """Complete analysis result with metadata."""
+
     analysis_id: str
     status: str
     submitted_at: str

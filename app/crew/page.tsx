@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { StartupInput } from "@/types/crew";
+import { StartupInput, ProductTechnology, FinanceRunway } from "@/types/crew";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 
@@ -79,7 +79,7 @@ export default function CrewInputPage() {
         }
     };
 
-    const addItem = (array: string[], value: string, setter: (val: string) => void) => {
+    const addItem = (array: string[], value: string) => {
         if (value.trim()) {
             return [...array, value.trim()];
         }
@@ -187,7 +187,7 @@ export default function CrewInputPage() {
                                 Select Analysis Type
                             </h1>
                             <p className="text-gray-300">
-                                Choose which AI agent you'd like to run on your startup data
+                                Choose which AI agent you&apos;d like to run on your startup data
                             </p>
                             <button
                                 onClick={() => setShowAgentSelection(false)}
@@ -221,7 +221,7 @@ export default function CrewInputPage() {
                                     <div className="text-3xl mb-3">💪</div>
                                     <h3 className="text-2xl font-bold mb-2">Analyze Strengths</h3>
                                     <p className="text-green-100">
-                                        Identify your competitive advantages and what you're doing right
+                                        Identify your competitive advantages and what you&apos;re doing right
                                     </p>
                                 </div>
                             </button>
@@ -329,7 +329,7 @@ export default function CrewInputPage() {
                                                 ...formData,
                                                 product_technology: {
                                                     ...formData.product_technology,
-                                                    product_type: e.target.value as any,
+                                                    product_type: e.target.value as ProductTechnology["product_type"],
                                                 },
                                             })
                                         }
@@ -359,8 +359,7 @@ export default function CrewInputPage() {
                                                             ...formData.product_technology,
                                                             current_features: addItem(
                                                                 formData.product_technology.current_features,
-                                                                featureInput,
-                                                                setFeatureInput
+                                                                featureInput
                                                             ),
                                                         },
                                                     });
@@ -378,8 +377,7 @@ export default function CrewInputPage() {
                                                         ...formData.product_technology,
                                                         current_features: addItem(
                                                             formData.product_technology.current_features,
-                                                            featureInput,
-                                                            setFeatureInput
+                                                            featureInput
                                                         ),
                                                     },
                                                 });
@@ -434,8 +432,7 @@ export default function CrewInputPage() {
                                                             ...formData.product_technology,
                                                             tech_stack: addItem(
                                                                 formData.product_technology.tech_stack,
-                                                                techStackInput,
-                                                                setTechStackInput
+                                                                techStackInput
                                                             ),
                                                         },
                                                     });
@@ -453,8 +450,7 @@ export default function CrewInputPage() {
                                                         ...formData.product_technology,
                                                         tech_stack: addItem(
                                                             formData.product_technology.tech_stack,
-                                                            techStackInput,
-                                                            setTechStackInput
+                                                            techStackInput
                                                         ),
                                                     },
                                                 });
@@ -503,7 +499,7 @@ export default function CrewInputPage() {
                                                 ...formData,
                                                 product_technology: {
                                                     ...formData.product_technology,
-                                                    data_strategy: e.target.value as any,
+                                                    data_strategy: e.target.value as ProductTechnology["data_strategy"],
                                                 },
                                             })
                                         }
@@ -526,7 +522,7 @@ export default function CrewInputPage() {
                                                 ...formData,
                                                 product_technology: {
                                                     ...formData.product_technology,
-                                                    ai_usage: e.target.value as any,
+                                                    ai_usage: e.target.value as ProductTechnology["ai_usage"],
                                                 },
                                             })
                                         }
@@ -582,8 +578,7 @@ export default function CrewInputPage() {
                                                             ...formData.marketing_growth,
                                                             current_marketing_channels: addItem(
                                                                 formData.marketing_growth.current_marketing_channels,
-                                                                channelInput,
-                                                                setChannelInput
+                                                                channelInput
                                                             ),
                                                         },
                                                     });
@@ -601,8 +596,7 @@ export default function CrewInputPage() {
                                                         ...formData.marketing_growth,
                                                         current_marketing_channels: addItem(
                                                             formData.marketing_growth.current_marketing_channels,
-                                                            channelInput,
-                                                            setChannelInput
+                                                            channelInput
                                                         ),
                                                     },
                                                 });
@@ -763,8 +757,7 @@ export default function CrewInputPage() {
                                                             ...formData.team_organization,
                                                             founder_roles: addItem(
                                                                 formData.team_organization.founder_roles,
-                                                                roleInput,
-                                                                setRoleInput
+                                                                roleInput
                                                             ),
                                                         },
                                                     });
@@ -782,8 +775,7 @@ export default function CrewInputPage() {
                                                         ...formData.team_organization,
                                                         founder_roles: addItem(
                                                             formData.team_organization.founder_roles,
-                                                            roleInput,
-                                                            setRoleInput
+                                                            roleInput
                                                         ),
                                                     },
                                                 });
@@ -889,8 +881,7 @@ export default function CrewInputPage() {
                                                             ...formData.competition_market,
                                                             known_competitors: addItem(
                                                                 formData.competition_market.known_competitors,
-                                                                competitorInput,
-                                                                setCompetitorInput
+                                                                competitorInput
                                                             ),
                                                         },
                                                     });
@@ -908,8 +899,7 @@ export default function CrewInputPage() {
                                                         ...formData.competition_market,
                                                         known_competitors: addItem(
                                                             formData.competition_market.known_competitors,
-                                                            competitorInput,
-                                                            setCompetitorInput
+                                                            competitorInput
                                                         ),
                                                     },
                                                 });
@@ -1065,7 +1055,7 @@ export default function CrewInputPage() {
                                                 ...formData,
                                                 finance_runway: {
                                                     ...formData.finance_runway,
-                                                    funding_status: e.target.value as any,
+                                                    funding_status: e.target.value as FinanceRunway["funding_status"],
                                                 },
                                             })
                                         }

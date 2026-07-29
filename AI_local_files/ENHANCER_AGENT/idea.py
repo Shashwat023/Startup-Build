@@ -26,6 +26,7 @@ if sys.platform == "win32":
 # PYDANTIC MODELS FOR STRUCTURED OUTPUT
 # ============================================================================
 
+
 class MarketSize(BaseModel):
     tam: str = Field(description="Total Addressable Market estimate")
     sam: str = Field(description="Serviceable Available Market estimate")
@@ -67,7 +68,7 @@ class EnhancedStartupIdea(BaseModel):
         "READY_FOR_INTERVIEWS",
         "READY_FOR_MVP",
         "NEEDS_MORE_RESEARCH",
-        "READY_FOR_LANDING_PAGE"
+        "READY_FOR_LANDING_PAGE",
     ]
 
     primary_risk_category: Literal[
@@ -82,7 +83,7 @@ class EnhancedStartupIdea(BaseModel):
         "LANDING_PAGE",
         "MVP_PROTOTYPE",
         "MARKET_RESEARCH",
-        "COMPETITOR_ANALYSIS"
+        "COMPETITOR_ANALYSIS",
     ]
 
     market_size: MarketSize
@@ -104,6 +105,7 @@ class EnhancedStartupIdea(BaseModel):
 # STATE DEFINITION
 # ============================================================================
 
+
 class WorkflowState(TypedDict):
     raw_idea: str
     normalized_idea: str
@@ -119,14 +121,12 @@ class WorkflowState(TypedDict):
 # WORKFLOW CLASS
 # ============================================================================
 
-class StartupIdeaEnhancer:
 
+class StartupIdeaEnhancer:
     def __init__(self, groq_api_key: str, max_retries: int = 5):
         self.max_retries = max_retries
         self.llm = ChatGroq(
-            api_key=groq_api_key,
-            model="openai/gpt-oss-120b",
-            temperature=0.7
+            api_key=groq_api_key, model="openai/gpt-oss-120b", temperature=0.7
         )
         self.structured_llm = self.llm.with_structured_output(EnhancedStartupIdea)
 
@@ -135,7 +135,7 @@ class StartupIdeaEnhancer:
 
         prompt = f"""
 Normalize the following startup idea:
-{state['raw_idea']}
+{state["raw_idea"]}
 """
 
         response = self.llm.invoke([SystemMessage(content=prompt)])
@@ -149,7 +149,7 @@ Normalize the following startup idea:
 Extract problem, target_users, solution, value_proposition, key_assumptions as JSON.
 
 Idea:
-{state['normalized_idea']}
+{state["normalized_idea"]}
 """
 
         response = self.llm.invoke([SystemMessage(content=prompt)])
@@ -163,7 +163,7 @@ Idea:
 Validate the following structured idea.
 Return STATUS: PASS or FAIL.
 
-{state['structured_idea']}
+{state["structured_idea"]}
 """
 
         response = self.llm.invoke([SystemMessage(content=prompt)])
@@ -187,7 +187,10 @@ Enhance this startup idea:
 
         try:
             result = self.structured_llm.invoke(
-                [SystemMessage(content=prompt), HumanMessage(content="Generate full analysis")]
+                [
+                    SystemMessage(content=prompt),
+                    HumanMessage(content="Generate full analysis"),
+                ]
             )
             state["final_output"] = result.model_dump()
         except Exception as e:
@@ -221,7 +224,7 @@ Enhance this startup idea:
         graph.add_conditional_edges(
             "validate",
             self.should_retry,
-            {"retry": "structure", "enhance": "enhance", "end": END}
+            {"retry": "structure", "enhance": "enhance", "end": END},
         )
 
         graph.add_edge("enhance", END)
@@ -236,7 +239,7 @@ Enhance this startup idea:
             "validation_passed": False,
             "retry_count": 0,
             "final_output": {},
-            "error": ""
+            "error": "",
         }
 
         graph = self.build_graph()
@@ -248,7 +251,6 @@ Enhance this startup idea:
 # ============================================================================
 
 if __name__ == "__main__":
-
     GROQ_API_KEY = os.getenv("GROQ_API_KEY")
     if not GROQ_API_KEY:
         raise ValueError("GROQ_API_KEY not found in environment variables")

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, Suspense, useRef } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
     StartupInput,
     StrengthsResults,
@@ -12,7 +12,6 @@ import { Footer } from "@/components/layout/footer";
 
 function StrengthsContent() {
     const router = useRouter();
-    const searchParams = useSearchParams();
     const [status, setStatus] = useState<"loading" | "streaming" | "completed" | "failed">("loading");
     const [error, setError] = useState<string | null>(null);
     const [results, setResults] = useState<StrengthsResults | null>(null);
@@ -99,9 +98,9 @@ function StrengthsContent() {
                     fetchFinalResults(data.analysis_id);
                 };
 
-            } catch (error: any) {
+            } catch (error) {
                 console.error('Error:', error);
-                setError(error.message || 'Failed to start analysis');
+                setError(error instanceof Error ? error.message : 'Failed to start analysis');
                 setStatus("failed");
                 // Don't retry - show error to user
             }
@@ -143,7 +142,7 @@ function StrengthsContent() {
                 eventSourceRef.current = null;
             }
         };
-    }, []); // Empty deps - run once on mount only
+    }, [router]); // router ref is stable; effect still runs once on mount
 
     // Loading/Streaming state with pipeline progress
     if (status === "loading" || status === "streaming") {
@@ -165,7 +164,7 @@ function StrengthsContent() {
                         {/* Pipeline Progress */}
                         {pipeline && (
                             <div className="space-y-4">
-                                {pipeline.agents.map((agent, index) => (
+                                {pipeline.agents.map((agent) => (
                                     <div
                                         key={agent.agent_name}
                                         className={`bg-white/10 backdrop-blur-lg rounded-xl p-6 border-2 ${agent.status === "running" || agent.status === "retrying"

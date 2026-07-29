@@ -1,12 +1,11 @@
 "use client";
 
 import { useEffect, useState, useRef, Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
     StartupInput,
     RoadmapResults,
     PipelineStatus,
-    AgentStatus,
 } from "@/types/crew";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
@@ -121,7 +120,6 @@ function PipelineProgress({ pipeline }: { pipeline: PipelineStatus }) {
 
 function RoadmapContent() {
     const router = useRouter();
-    const searchParams = useSearchParams();
     const [status, setStatus] = useState<"loading" | "streaming" | "completed" | "failed">("loading");
     const [error, setError] = useState<string | null>(null);
     const [results, setResults] = useState<RoadmapResults | null>(null);
@@ -208,9 +206,9 @@ function RoadmapContent() {
                     fetchFinalResults(data.analysis_id);
                 };
 
-            } catch (error: any) {
+            } catch (error) {
                 console.error('Error:', error);
-                setError(error.message || 'Failed to start analysis');
+                setError(error instanceof Error ? error.message : 'Failed to start analysis');
                 setStatus("failed");
                 // Don't retry - show error to user
             }
@@ -252,7 +250,7 @@ function RoadmapContent() {
                 eventSourceRef.current = null;
             }
         };
-    }, []); // Empty deps - run once on mount only
+    }, [router]); // router ref is stable; effect still runs once on mount
 
     // Loading/Streaming state with pipeline progress
     if (status === "loading" || status === "streaming") {

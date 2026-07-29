@@ -41,15 +41,15 @@ interface FinalPitchPackage {
     problem_statement?: string;
     solution?: string;
     unique_value_proposition?: string;
-    traction_metrics?: any;
-    market_opportunity?: any;
-    business_model?: any;
+    traction_metrics?: unknown;
+    market_opportunity?: unknown;
+    business_model?: unknown;
     competitive_advantage?: string[];
     team_highlights?: string;
-    funding_ask?: any;
+    funding_ask?: unknown;
     key_talking_points?: string[];
     anticipated_questions?: Array<{ question: string; answer: string }>;
-    delivery_tips?: any;
+    delivery_tips?: unknown;
 }
 
 export default function PitcherPage() {

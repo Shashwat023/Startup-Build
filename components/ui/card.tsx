@@ -5,7 +5,9 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { cardHover } from "@/animations/variants";
 
-export interface CardProps extends HTMLAttributes<HTMLDivElement> {
+type ConflictingHandlers = "onDrag" | "onDragStart" | "onDragEnd" | "onAnimationStart" | "onAnimationEnd" | "onAnimationIteration";
+
+export interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, ConflictingHandlers> {
     hoverable?: boolean;
 }
 

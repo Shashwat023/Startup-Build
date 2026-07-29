@@ -17,10 +17,10 @@ export async function POST(req: NextRequest) {
         await saveStartupFormData(session.user.email, formData);
 
         return NextResponse.json({ success: true, message: 'Form data saved successfully' });
-    } catch (error: any) {
+    } catch (error) {
         console.error('Error saving startup form data:', error);
         return NextResponse.json(
-            { error: 'Failed to save form data', details: error.message },
+            { error: 'Failed to save form data', details: error instanceof Error ? error.message : String(error) },
             { status: 500 }
         );
     }

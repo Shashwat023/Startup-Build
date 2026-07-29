@@ -5,7 +5,10 @@ from pydantic import BaseModel, Field
 
 class MarketResearchInput(BaseModel):
     """Input for market research tool."""
-    query: str = Field(..., description="The market research query or topic to investigate")
+
+    query: str = Field(
+        ..., description="The market research query or topic to investigate"
+    )
     industry: str = Field(..., description="The industry or sector to focus on")
 
 
@@ -37,7 +40,10 @@ Recommendation: Focus on differentiation and customer experience to stand out in
 
 class FinancialBenchmarkInput(BaseModel):
     """Input for financial benchmark tool."""
-    company_stage: str = Field(..., description="The company stage (Seed, Series A, etc.)")
+
+    company_stage: str = Field(
+        ..., description="The company stage (Seed, Series A, etc.)"
+    )
     industry: str = Field(..., description="The industry sector")
 
 
@@ -55,23 +61,23 @@ class FinancialBenchmarkTool(BaseTool):
             "Seed": {
                 "typical_burn": "$50K-150K/month",
                 "runway_months": "12-18 months",
-                "growth_rate": "15-25% MoM"
+                "growth_rate": "15-25% MoM",
             },
             "Series A": {
                 "typical_burn": "$200K-500K/month",
                 "runway_months": "18-24 months",
-                "growth_rate": "10-20% MoM"
-            }
+                "growth_rate": "10-20% MoM",
+            },
         }
-        
+
         stage_data = benchmarks.get(company_stage, benchmarks["Seed"])
-        
+
         return f"""
 Financial Benchmarks for {company_stage} in {industry}:
 
-Typical Monthly Burn: {stage_data['typical_burn']}
-Expected Runway: {stage_data['runway_months']}
-Target Growth Rate: {stage_data['growth_rate']}
+Typical Monthly Burn: {stage_data["typical_burn"]}
+Expected Runway: {stage_data["runway_months"]}
+Target Growth Rate: {stage_data["growth_rate"]}
 
 Industry Context:
 - Companies at this stage typically focus on product-market fit
@@ -83,8 +89,11 @@ Industry Context:
 
 class TechStackAnalysisInput(BaseModel):
     """Input for tech stack analysis tool."""
+
     tech_stack: str = Field(..., description="Comma-separated list of technologies")
-    product_type: str = Field(..., description="Type of product (Web, Mobile, SaaS, etc.)")
+    product_type: str = Field(
+        ..., description="Type of product (Web, Mobile, SaaS, etc.)"
+    )
 
 
 class TechStackAnalysisTool(BaseTool):
@@ -119,6 +128,7 @@ Recommendations:
 
 class HiringStrategyInput(BaseModel):
     """Input for hiring strategy tool."""
+
     team_size: int = Field(..., description="Current team size")
     roles_needed: str = Field(..., description="Roles that need to be filled")
 
@@ -165,6 +175,7 @@ Timeline:
 
 class CompetitorAnalysisInput(BaseModel):
     """Input for competitor analysis tool."""
+
     competitors: str = Field(..., description="Comma-separated list of competitors")
     industry: str = Field(..., description="Industry sector")
 
